@@ -1,0 +1,5 @@
+query FindOne($id: String!) {
+  findOneUser(id: $id) {
+    username
+  }
+}

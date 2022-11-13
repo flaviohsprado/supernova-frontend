@@ -1,7 +1,8 @@
 import {
     Box, Flex
 } from "@chakra-ui/react";
-import FormLogin from "../../src/components/login/Form";
+import FormLogin from "../../src/components/Authentication/Login/Form";
+
 
 export default function Login() {
     return (        
@@ -12,7 +13,7 @@ export default function Login() {
             minH={'100vh'} 
             backgroundColor={'black'}             
         >
-            <Box bg='#3E3E3E' borderRadius='10px' w={'400px'} h={'250px'}>
+            <Box bg='#3E3E3E' borderRadius='20px' maxW={'sm'} minH={'70vh'}>
                 <FormLogin/>
             </Box>            
         </Flex>

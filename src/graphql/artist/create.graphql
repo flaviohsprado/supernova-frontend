@@ -1,0 +1,9 @@
+mutation CreateArtist($name: String!) {
+  createArtist(artist: {
+    name: $name
+  }) {
+    id,
+    name,
+    createdAt
+  }
+}

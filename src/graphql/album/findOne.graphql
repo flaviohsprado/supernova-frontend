@@ -1,0 +1,8 @@
+query FindOneAlbum($id: String!) {
+  findOneAlbum(id: $id) {
+    id,
+	artistId,
+    title,
+    releaseDate,
+  }
+}

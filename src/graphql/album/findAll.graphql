@@ -1,0 +1,10 @@
+query FindAllAlbums {
+	findAllAlbum {
+    id,
+    artistId,
+    title,
+    releaseDate,
+    createdAt,
+    updatedAt
+  }
+}

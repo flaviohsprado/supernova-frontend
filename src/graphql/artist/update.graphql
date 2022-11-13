@@ -1,0 +1,7 @@
+mutation UpdateArtist($id: String!, $name: String!) {
+  updateArtist(id: $id, artist: {
+    name: $name,    
+  }) {
+    name,
+  }
+}

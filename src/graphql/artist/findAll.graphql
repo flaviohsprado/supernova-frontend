@@ -1,0 +1,9 @@
+query FindAllArtists {
+  findAllArtist {
+    id,
+    name,
+    monthlyListeners,
+    createdAt,
+    updatedAt
+  }
+}

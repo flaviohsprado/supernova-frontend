@@ -1,0 +1,5 @@
+mutation DeleteAlbum($id: String!) {
+  deleteAlbum(id: $id) {
+    title
+  }
+}

@@ -1,0 +1,5 @@
+query FindOneArtist($id: String!) {
+  findOneArtist(id: $id) {
+    name
+  }
+}

@@ -1,9 +1,8 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ChakraProvider } from '@chakra-ui/react'
-import { extendTheme } from '@chakra-ui/react'
 import { ApolloProvider } from '@apollo/client'
+import { ChakraProvider, extendTheme, GlobalStyle } from '@chakra-ui/react'
+import type { AppProps } from 'next/app'
 import { client } from '../src/graphql/client'
+import '../styles/globals.css'
 
 const colors = {
     brand: {
@@ -17,12 +16,12 @@ const theme = extendTheme({ colors })
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
-            <>
-                <ApolloProvider client={client}>
-                    <ChakraProvider theme={theme}>
-                        <Component {...pageProps} />
-                    </ChakraProvider>
-                </ApolloProvider>
-            </>
+        <>
+            <ApolloProvider client={client}>
+                <ChakraProvider theme={theme}>
+                    <Component {...pageProps} />
+                </ChakraProvider>
+            </ApolloProvider>
+        </>
     )
 }

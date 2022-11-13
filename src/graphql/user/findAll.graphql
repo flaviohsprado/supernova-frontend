@@ -1,0 +1,7 @@
+query FindAllUser {
+  findAllUser {
+    id,
+    username,
+    email
+  }
+}

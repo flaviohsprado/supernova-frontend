@@ -15,12 +15,20 @@
     "@chakra-ui/react": "^2.3.6",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.12",
+    "@mui/styled-engine-sc": "^5.10.6",
+    "@mui/x-data-grid": "^5.17.9",
+    "@tanstack/react-table": "^8.5.22",
+    "date-fns": "^2.29.3",
     "formik": "^2.2.9",
     "framer-motion": "^7.6.2",
     "graphql": "^16.6.0",
     "next": "13.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.6.0",
+    "react-slick": "^0.29.0",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.13.8",
