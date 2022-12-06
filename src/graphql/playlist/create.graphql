@@ -1,0 +1,5 @@
+mutation CreatePlaylist($playlist: CreatePlaylistDTO!) {
+    createPlaylist(playlist: $playlist) {
+        title
+    }
+}

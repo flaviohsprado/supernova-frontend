@@ -3,11 +3,13 @@ import {
     Flex, Text,
     useDisclosure
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { IconType } from 'react-icons';
 import { BiUser } from 'react-icons/bi';
 import { FiHome, FiMusic } from 'react-icons/fi';
 import { GiMicrophone } from 'react-icons/gi';
+import { MdKeyboardReturn } from 'react-icons/md';
 import { RiAlbumFill } from 'react-icons/ri';
 import { SidebarButton } from '../../global/SidebarButton';
 import AlbumPage from '../Album';
@@ -77,6 +79,12 @@ const SidebarContent = ({ onClose, setPage, ...rest }: SidebarProps) => {
                     </Text>
                 </SidebarButton>
             ))}
+
+            <SidebarButton key={'dashboard'} icon={MdKeyboardReturn} position={'absolute'} bottom={0} width={'13rem'}>
+                <Link href={'/dashboard'}>
+                    <Text fontFamily="monospace" fontWeight="bold" color={'white'}>Dashboard</Text>
+                </Link>                
+            </SidebarButton>
         </Box>
     );
 };

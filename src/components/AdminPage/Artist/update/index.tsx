@@ -1,8 +1,8 @@
 import { Button, Flex, IconButton, useDisclosure } from "@chakra-ui/react";
 import { FiDatabase } from "react-icons/fi";
+import { useUpdateArtist } from "../../../../hooks/artist/useUpdateArtist";
 import StyledInput from "../../../global/StyledInput";
 import StyledModal from "../../../global/StyledModal";
-import { useUpdateArtist } from "./useUpdateArtist";
 
 export interface IUpdateArtistModalProps {
     artistId: string;

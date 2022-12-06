@@ -1,8 +1,6 @@
 mutation UpdateAlbum($id: String!, $title: String!) {
-  updateAlbum(id: $id, album: {
-    title: $title,
-  }) {
-    title,
-    releaseDate,
-  }
+    updateAlbum(id: $id, album: { title: $title }) {
+        title
+        releaseDate
+    }
 }

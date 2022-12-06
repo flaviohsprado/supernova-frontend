@@ -1,13 +1,7 @@
-mutation CreateAlbum($artistId: String!, $title: String!, $releaseDate: DateTime!) {
-  createAlbum(
-    album: { artistId: $artistId, title: $title, releaseDate: $releaseDate }
-  ) {
+mutation CreateAlbum($album: CreateAlbumDTO!, $file: Upload) {
+  createAlbum(album: $album, file: $file) {
     id
     title
-    numberOfSongs
-    duration
     releaseDate
-    createdAt
-    updatedAt
   }
 }

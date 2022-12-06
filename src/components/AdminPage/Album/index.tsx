@@ -1,25 +1,29 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useMemo } from "react";
+import { useDeleteAlbum } from "../../../hooks/album/useDeleteAlbum";
+import { IAlbum, useFindAllAlbums } from "../../../hooks/album/useListAlbum";
 import createColumnHelperObject from "../../../utils/columnHelperObject.utils";
 import { DataTable } from "../../Datatable/datatable";
 import CreateAlbum from "./create";
-import { useDeleteAlbum } from "./delete/useDeleteAlbum";
 import UpdateAlbum from "./update";
-import { useFindAllAlbums } from "./useListAlbum";
+
+interface IAlbumColumn extends IAlbum {
+    deleteAction?: string;
+    updateAction?: string;
+    fixed?: string;
+}
 
 export default function AlbumPage() {
     const { albums } = useFindAllAlbums()
-
     const { handleDeleteAlbum } = useDeleteAlbum()
 
     const columns = createColumnHelperObject({
         data: albums,
         handleDelete: handleDeleteAlbum,
-        updateColumn: <UpdateAlbum artistId={''} />
+        updateChildren: <UpdateAlbum id={''}/>
     })
 
     return (
-        <Box height={'100vh'}>
+        <Box minH={'95.2vh'}>
             <Flex>
                 <CreateAlbum />
             </Flex>
@@ -28,7 +32,7 @@ export default function AlbumPage() {
                 <DataTable
                     columns={columns}
                     data={albums}
-                />
+                />                
             </Box>
         </Box>
     );

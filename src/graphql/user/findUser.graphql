@@ -1,0 +1,9 @@
+query FindUser {
+  findUser {
+    id
+    username
+    file {
+      url
+    }
+  }
+}

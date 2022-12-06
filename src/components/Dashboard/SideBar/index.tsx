@@ -1,70 +1,58 @@
-import {
-  Box, Divider, List, ListItem, Text, useDisclosure
-} from '@chakra-ui/react';
-import Link from 'next/link';
-import { IconType } from 'react-icons';
-import { BiHomeAlt, BiSearch, BiLibrary } from 'react-icons/bi';
-import { SidebarButton } from '../../global/SidebarButton';
+import { Box, Divider, Text } from '@chakra-ui/react'
+import { ReactNode } from 'react'
+import { IconType } from 'react-icons'
+import { BiHomeAlt, BiLibrary, BiSearch } from 'react-icons/bi'
+import { useListPlaylists } from '../../../hooks/playlist/useListPlaylist'
+import { SidebarButton } from '../../global/SidebarButton'
+import HomePageDashboard from '../../Home'
+import ListPlaylist from '../Playlist'
+import CreatePlaylist from '../Playlist/create'
 
 interface LinkItemProps {
-  name: string;
-  icon: IconType;
+    name: string
+    icon: IconType
+    page?: ReactNode
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: BiHomeAlt },
-  { name: 'Search', icon: BiSearch },
-  { name: 'Your Library', icon: BiLibrary },
-];
-
-const playlistsMock = [
-  { name: 'Rock' },
-  { name: 'Black' },
-  { name: 'Funk' },
-  { name: '[G]old' },
+    { name: 'Home', icon: BiHomeAlt, page: <HomePageDashboard /> },
+    { name: 'Search', icon: BiSearch },
+    { name: 'Your Library', icon: BiLibrary },
 ]
 
-export default function Sidebar() {
-  //Pega as playlists do hook
-  const alphabetizedPlaylists = alphabetizePlaylists(playlistsMock);
+interface ISidebarProps {
+    setPage: React.Dispatch<React.SetStateAction<ReactNode>>
+    userId: string
+}
 
-  return (
-    <Box
-      bg={'black'}
-      borderRadius={'10px'}
-      width={'auto'}
-      minH={'76.5vh'}
-      maxH={'76.5vh'}
-      paddingTop={'10px'}
-    >
-      {LinkItems.map((link) => (
-        <SidebarButton key={link.name} icon={link.icon}>
-          <Text fontWeight="bold" color={'white'}>
-            {link.name}
-          </Text>
-        </SidebarButton>
-      ))}
-      <Box padding={'10px 20px 10px 20px'}>
-        <Divider />
-      </Box>
-      <List spacing={3} paddingLeft={'20px'} paddingBottom={'20px'}>
-        {alphabetizedPlaylists.map((linkItem, index) => (
-          <ListItem key={index} >
-            <Link key={index} href={`/${linkItem}`}
-              style={{
-                textDecoration: 'none',
-                color: 'white',
-              }}
-            >
-              {linkItem.name}
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-};
+export default function Sidebar({ userId, setPage }: ISidebarProps) {
+    const { playlists } = useListPlaylists(String(userId))
 
-function alphabetizePlaylists(playlists: any[]) {
-  return playlists.sort((a, b) => a.name.localeCompare(b.name));
+    return (
+        <Box
+            bg={'black'}
+            borderRadius={'10px'}
+            width={'auto'}
+            height={'100%'}
+            paddingTop={'10px'}
+        >
+            {LinkItems.map((link) => (
+                <SidebarButton
+                    key={link.name}
+                    icon={link.icon}
+                    onClick={() => setPage(link.page)}
+                >
+                    <Text fontWeight="bold" color={'white'}>
+                        {link.name}
+                    </Text>
+                </SidebarButton>
+            ))}
+            <Box padding={'20px 0 20px 0'} />
+            <CreatePlaylist userId={userId} />
+            <Box padding={'10px 20px 10px 20px'}>
+                <Divider />
+            </Box>
+            <ListPlaylist playlists={playlists} />
+        </Box>
+    )
 }

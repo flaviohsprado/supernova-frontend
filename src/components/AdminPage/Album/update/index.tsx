@@ -1,16 +1,24 @@
-import { Button, Flex, IconButton, useDisclosure } from "@chakra-ui/react";
-import { FiDatabase } from "react-icons/fi";
-import StyledInput from "../../../global/StyledInput";
-import StyledModal from "../../../global/StyledModal";
-import { useUpdateAlbum } from "./useUpdateAlbum";
+import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react'
+import { FiDatabase } from 'react-icons/fi'
+import { useUpdateAlbum } from '../../../../hooks/album/useUpdateAlbum'
+import StyledFileInput from '../../../global/StyledFileImageInput'
+import StyledInput from '../../../global/StyledInput'
+import StyledModal from '../../../global/StyledModal'
 
 export interface IUpdateArtistModalProps {
-    artistId: string;
+    id: string
 }
 
-export default function UpdateAlbum({ artistId }: IUpdateArtistModalProps) {
+export default function UpdateAlbum({ id }: IUpdateArtistModalProps) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { title, setTitle, handleSubmit } = useUpdateAlbum(artistId, onClose)
+    const { title, setTitle, setFile, handleSubmit } = useUpdateAlbum(
+        id,
+        onClose
+    )
+
+    const handleEditAlbumCover = (file: File) => {
+        setFile(file)
+    }
 
     return (
         <>
@@ -21,12 +29,12 @@ export default function UpdateAlbum({ artistId }: IUpdateArtistModalProps) {
                 color={'black'}
                 _hover={{
                     bg: '#1DB954',
-                    color: 'white'
+                    color: 'white',
                 }}
             />
 
             <StyledModal
-                title={"Let's update this artist to Supernova!"}
+                title={"Let's update this album to Supernova!"}
                 isOpen={isOpen}
                 onClose={onClose}
                 onOpen={onOpen}
@@ -35,11 +43,16 @@ export default function UpdateAlbum({ artistId }: IUpdateArtistModalProps) {
                     <StyledInput
                         inputColor={'white'}
                         labelColor={'white'}
-                        label={"Title"}
+                        label={'Title'}
                         value={title}
-                        type={"text"}
+                        type={'text'}
                         onUpdated={(value: string) => setTitle(value)}
                         required={true}
+                    />
+                    <StyledFileInput
+                        label={'Cover'}
+                        handleFile={handleEditAlbumCover}
+                        acceptedFileTypes={'image/*'}
                     />
                     <Flex>
                         <Button
@@ -48,9 +61,11 @@ export default function UpdateAlbum({ artistId }: IUpdateArtistModalProps) {
                             color={'white'}
                             type={'submit'}
                             _hover={{
-                                bg: '#147a38'
+                                bg: '#147a38',
                             }}
-                        >Save</Button>
+                        >
+                            Save
+                        </Button>
                     </Flex>
                 </form>
             </StyledModal>

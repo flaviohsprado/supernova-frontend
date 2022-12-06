@@ -1,7 +1,7 @@
 import { Button, Flex, useDisclosure } from "@chakra-ui/react"
+import { useCreateArtist } from "../../../../hooks/artist/useCreateArtist"
 import StyledInput from "../../../global/StyledInput"
 import StyledModal from "../../../global/StyledModal"
-import { useCreateArtist } from "./useCreateArtist"
 
 export default function CreateArtist() {
     const { isOpen, onOpen, onClose } = useDisclosure()

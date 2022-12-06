@@ -1,5 +1,8 @@
 query FindOne($id: String!) {
   findOneUser(id: $id) {
     username
+    file {
+      url
+    }
   }
 }

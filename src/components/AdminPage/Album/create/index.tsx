@@ -1,9 +1,9 @@
 import { Button, Flex, useDisclosure } from "@chakra-ui/react"
+import { useCreateAlbum } from "../../../../hooks/album/useCreateAlbum"
+import { useFindAllArtists } from "../../../../hooks/artist/useListArtists"
 import { StyledDropdown } from "../../../global/StyledDropdown"
 import StyledInput from "../../../global/StyledInput"
 import StyledModal from "../../../global/StyledModal"
-import { useFindAllArtists } from "../../Artist/useListArtists"
-import { useCreateAlbum } from "./useCreateAlbum"
 
 export default function CreateAlbum() {
     const { isOpen, onOpen, onClose } = useDisclosure()

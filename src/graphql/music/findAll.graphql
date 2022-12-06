@@ -1,0 +1,15 @@
+query FindAllMusics {
+    findAllMusic {
+        id
+        title
+        duration
+        createdAt
+        updatedAt
+        file {
+            url
+        }
+        album {
+            title
+        }
+    }
+}

@@ -1,0 +1,23 @@
+query FindPLaylist($id: String!) {
+    findOnePlaylist(id: $id) {
+        id
+        title
+        isPublic
+        numberOfSongs
+        duration
+        user {
+            username
+            file {
+                url
+            }
+        }
+        musics {
+            id
+            title
+            duration
+            file {
+                url
+            }
+        }
+    }
+}

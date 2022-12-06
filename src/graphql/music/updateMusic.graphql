@@ -1,0 +1,9 @@
+mutation UpdateMusicFile($id: String!, $file: Upload!) {
+    updateMusicFile(id: $id, file: $file) {
+        id
+        title
+        file {
+            url
+        }
+    }
+}

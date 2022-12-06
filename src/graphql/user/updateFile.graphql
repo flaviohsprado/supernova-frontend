@@ -1,0 +1,7 @@
+mutation UpdateFile($id: String!, $file: Upload!) {
+  updateUserFile(id: $id, file: $file) {
+    file {
+      url
+    }
+  }
+}

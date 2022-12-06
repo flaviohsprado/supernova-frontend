@@ -1,8 +1,8 @@
 import { Flex, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { useSignUpHook } from "../../../../hooks/auth/useSignup";
 import StyledInput from "../../../global/StyledInput";
 import SignUpButton from "../Button/index";
-import { useSignUpHook } from "./signup.hook";
 
 export default function FormSignUp(props: any) {
   const { username, setUsername, email, setEmail, password, setPassword, verifyPassword, setVerifyPassword, handleSubmit, errorMessage } = useSignUpHook()

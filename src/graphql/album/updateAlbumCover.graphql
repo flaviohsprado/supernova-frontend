@@ -1,0 +1,9 @@
+mutation UpdateAlbumCover($id: String!, $file: Upload) {
+  updateAlbumFile(id: $id, file: $file) {
+    id
+    title
+    file {
+      url
+    }
+  }
+}

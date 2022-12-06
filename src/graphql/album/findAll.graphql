@@ -1,10 +1,12 @@
-query FindAllAlbums {
-	findAllAlbum {
-    id,
-    artistId,
-    title,
-    releaseDate,
-    createdAt,
+query FindAlbums {
+  findAllAlbum {
+    id
+    title
+    releaseDate
+    file {
+      url
+    }
+    createdAt
     updatedAt
   }
 }

@@ -1,18 +1,32 @@
-import { ReactNode, useState } from "react";
-import HomePage from "../../src/components/AdminPage/Home";
-import AdminSidebar from "../../src/components/AdminPage/Sidebar";
-import { AdminDashboardContext } from "../../src/contexts/album.context";
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
+import { ReactNode, useState } from 'react'
+import HomePage from '../../src/components/AdminPage/Home'
+import AdminSidebar from '../../src/components/AdminPage/Sidebar'
 
 export default function Dashboard() {
-    const [page, setPage] = useState<ReactNode>(<HomePage />);
+    const [page, setPage] = useState<ReactNode>(<HomePage />)
 
     return (
         <>
-            <AdminDashboardContext.Provider value={{ ownerId: '' }}>
-                <AdminSidebar setPage={setPage}>
-                    {page}
-                </AdminSidebar>
-            </AdminDashboardContext.Provider>
+            <AdminSidebar setPage={setPage}>{page}</AdminSidebar>
         </>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const { ['nextauth.token']: token } = parseCookies(context)
+
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: {},
+    }
 }

@@ -3,9 +3,9 @@ import {
   Text,
   useColorModeValue
 } from '@chakra-ui/react';
+import { useForgotPasswordHook } from '../../../hooks/auth/useforgotPassword';
 import SecondaryButton from '../../global/StyledButton';
-import StyledInput from '../../StyledInput';
-import { useForgotPasswordHook } from './forgotPassword.hook';
+import StyledInput from '../../global/StyledInput';
 
 export default function ForgotPasswordForm(): JSX.Element {
   const { email, errorMessage, handleSubmit, setEmail, isEmailSent } = useForgotPasswordHook()

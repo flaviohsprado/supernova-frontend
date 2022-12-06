@@ -1,0 +1,16 @@
+query FindOneMusic($id: String!) {
+  findOneMusic(id: $id) {
+    id
+    title
+    duration
+    album {
+      title
+      file {
+        url
+      }
+    }
+    file {
+      url
+    }
+  }
+}

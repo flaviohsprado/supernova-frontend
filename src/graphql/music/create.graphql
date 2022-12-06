@@ -1,0 +1,10 @@
+mutation CreateMusic($albumId: String!, $title: String!) {
+  createMusic(music: { albumId: $albumId, title: $title }) {
+    id
+    title
+    duration
+    album {
+      title
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { FiDelete } from "react-icons/fi";
+import { useDeleteArtist } from "../../../hooks/artist/useDeleteArtist";
+import { IArtist, useFindAllArtists } from "../../../hooks/artist/useListArtists";
 import { DataTable } from "../../Datatable/datatable";
 import CreateArtist from "./create";
-import { useDeleteArtist } from "./delete/useDeleteArtist";
 import UpdateArtistModal from "./update";
-import { IArtist, useFindAllArtists } from "./useListArtists";
 
 function createColumns() {
     const { handleDelete } = useDeleteArtist()

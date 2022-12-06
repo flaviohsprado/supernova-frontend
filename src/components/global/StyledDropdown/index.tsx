@@ -1,4 +1,4 @@
-import { FormLabel, Select } from "@chakra-ui/react";
+import { Box, FormLabel, Select } from "@chakra-ui/react";
 
 export interface IStyledDropdownProps {
     placeholder: string;
@@ -15,21 +15,20 @@ export const StyledDropdown = ({ placeholder, label, labelColor, options, onUpda
     }
 
     return (
-        <>
+        <Box paddingBottom={'16px'}>
             <FormLabel paddingLeft={'16px'} color={labelColor}>{label}</FormLabel>
             <Select
                 borderRadius={'20px'}
-                paddingBottom={'16px'}
                 bgColor={'white'}
                 placeholder={placeholder}
                 onChange={handleChange}
                 value={value}
                 {...rest}
             >
-                {options.map((option, index) => (
+                {options.map((option, index) => (                    
                     <option key={index} value={option.id}>{option.name}</option>
                 ))}
             </Select>
-        </>
+        </Box>
     )
 }

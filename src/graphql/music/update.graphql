@@ -1,0 +1,6 @@
+mutation UpdateMusic($id: String!, $music: UpdateMusicDTO!) {
+  updateMusic(id: $id, music: $music) {
+    id
+    title
+  }
+}
