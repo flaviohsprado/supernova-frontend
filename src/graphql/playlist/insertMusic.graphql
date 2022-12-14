@@ -1,0 +1,9 @@
+mutation InsertMusicIntoPlaylist($playlistId: String!, $musicId: String!) {
+    InsertMusicIntoPlaylist(playlistId: $playlistId, musicId: $musicId) {
+        title
+        isPublic
+        musics {
+            title
+        }
+    }
+}

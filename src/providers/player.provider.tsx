@@ -1,106 +1,160 @@
-import { ReactNode, useState } from 'react'
-import { IPlayerConfiguration, PlayerContext } from '../contexts/player.context'
+import { ReactNode, useEffect, useRef, useState } from 'react'
+import { PlayerContext } from '../contexts/player.context'
+import { IMusicBasicProps } from '../interfaces/music.interface'
 
 interface IPlayerProviderProps {
     children: ReactNode
 }
 
 export default function PlayerProvider({ children }: IPlayerProviderProps) {
-    const [state, setState] = useState<IPlayerConfiguration>({
-        url: null,
-        pip: false,
-        playing: false,
-        controls: false,
-        light: false,
-        volume: 0.8,
-        muted: false,
-        played: 0,
-        loaded: 0,
-        duration: 0,
-        playbackRate: 1.0,
-        loop: false,
-    })
+    const [musics, setMusics] = useState<IMusicBasicProps[]>([
+        {
+            id: '1',
+            title: 'SoundHelix Song 1',
+            url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        },
+    ])
+    const [musicIndex, setMusicIndex] = useState(0)
+    const [musicProgress, setMusicProgress] = useState(0)
+    const [volume, setVolume] = useState(0.5)
+    const [random, setRandom] = useState(false)
+    const [repeat, setRepeat] = useState(false)
+    const [playing, setPlaying] = useState(false)
+    const { url } = musics[musicIndex]
+    const audioRef = useRef(new Audio(String(url)))
+    const intervalRef = useRef()
+    const isReady = useRef(false)
+    const { duration } = audioRef.current
 
-    const load = (url: string) => {
-        setState({
-            url,
-            played: 0,
-            loaded: 0,
-            pip: false,
-        })
+    const handleStartTimer = () => {
+        // Clear any timers already running
+        clearInterval(intervalRef.current)
+
+        //@ts-ignore
+        intervalRef.current = setInterval(() => {
+            if (audioRef.current.ended) {
+                handleNextMusic()
+            } else {
+                setMusicProgress(audioRef.current.currentTime)
+            }
+            //@ts-ignore
+        }, [1000])
     }
 
-    const handlePlayPause = () => {
-        setState({ playing: !state.playing })
+    const handleSlide = (value: number) => {
+        // Clear any timers already running
+        clearInterval(intervalRef.current)
+        audioRef.current.currentTime = value
+        setMusicProgress(audioRef.current.currentTime)
     }
 
-    const handleStop = () => {
-        setState({ url: null, playing: false })
+    const handleSlideToEnd = () => {
+        // If not already playing, start
+        if (!playing) {
+            setPlaying(true)
+        }
+        handleStartTimer()
     }
 
-    const handleToggleLoop = () => {
-        setState({ loop: !state.loop })
-    }
-
-    const handleVolumeChange = (event: any) => {
-        setState({ volume: parseFloat(event.value) })
-    }
-
-    const handleToggleMuted = () => {
-        setState({ muted: !state.muted })
-    }
-
-    const handlePlay = () => {
-        console.log('onPlay')
-        setState({ playing: true })
-    }
-
-    const handlePause = () => {
-        console.log('onPause')
-        setState({ playing: false })
-    }
-
-    /*const handleSeekMouseDown = (event: any) => {
-        setState({ seeking: true })
-    }*/
-
-    const handleSeekChange = (event: any) => {
-        setState({ played: parseFloat(event.value) })
-    }
-
-    /*const handleSeekMouseUp = (event: any) => {
-        setState({ seeking: false })
-        player.seekTo(parseFloat(event.target.value))
-    }*/
-
-    const handleProgress = (state: any) => {
-        console.log('onProgress', state)
-        // We only want to update time slider if we are not currently seeking
-        if (!state.seeking) {
-            setState(state)
+    const handlePreviousMusic = () => {
+        if (musicIndex - 1 < 0) {
+            setMusicIndex(musics.length - 1)
+        } else {
+            setMusicIndex(musicIndex - 1)
         }
     }
 
-    const handleDuration = (duration: any) => {
-        console.log('onDuration', duration)
-        setState({ duration })
+    const handleNextMusic = () => {
+        if (musicIndex < musics.length - 1) {
+            setMusicIndex(musicIndex + 1)
+        } else {
+            setMusicIndex(0)
+        }
     }
+
+    const handleChangeVolume = (value: number) => {
+        audioRef.current.volume = value
+        setVolume(value)
+    }
+
+    const handleMute = () => {
+        audioRef.current.volume = 0
+        setVolume(0)
+    }
+
+    const handleRandom = () => {
+        setRandom(!random)
+
+        if (random) {
+            setMusicIndex(Math.floor(Math.random() * musics.length))
+        } else {
+            setMusicIndex(0)
+        }
+    }
+
+    const handleRepeat = () => {
+        setRepeat(!repeat)
+
+        if (repeat) {
+            audioRef.current.loop = true
+        } else {
+            audioRef.current.loop = false
+        }
+    }
+
+    useEffect(() => {
+        if (playing) {
+            audioRef.current.play()
+            handleStartTimer()
+        } else {
+            audioRef.current.pause()
+        }
+    }, [playing])
+
+    // Handles cleanup and setup when changing tracks
+    useEffect(() => {
+        audioRef.current.pause()
+
+        audioRef.current = new Audio(String(url))
+        setMusicProgress(audioRef.current.currentTime)
+
+        if (isReady.current) {
+            audioRef.current.play()
+            setPlaying(true)
+            handleStartTimer()
+        } else {
+            // Set the isReady ref as true for the next pass
+            isReady.current = true
+        }
+    }, [musicIndex])
+
+    useEffect(() => {
+        // Pause and clean up on unmount
+        return () => {
+            audioRef.current.pause()
+            clearInterval(intervalRef.current)
+        }
+    }, [])
 
     return (
         <PlayerContext.Provider
             value={{
-                state,
-                load,
-                handleDuration,
-                handlePause,
-                handlePlay,
-                handlePlayPause,
-                handleProgress,
-                handleSeekChange,
-                handleStop,
-                handleToggleLoop,
-                handleToggleMuted,
-                handleVolumeChange,
+                musics,
+                setMusics,
+                playing,
+                setPlaying,
+                volume,
+                handleChangeVolume,
+                random,
+                handleRandom,
+                repeat,
+                handleRepeat,
+                handleSlide,
+                handleSlideToEnd,
+                handlePreviousMusic,
+                handleNextMusic,
+                musicProgress,
+                duration,
             }}
         >
             {children}

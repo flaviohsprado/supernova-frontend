@@ -38,7 +38,6 @@ export const useLogin = () => {
 
             router.push("/dashboard");
         } catch (err) {            
-            console.log(err)
             toast({
                 title: 'Error on login',
                 description: err instanceof ApolloError ?  err?.graphQLErrors[0].message : 'An unexpected error has occurred',

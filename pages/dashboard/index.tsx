@@ -42,7 +42,7 @@ export default function Dashboard() {
                     maxHeight={'68vh'}
                     whiteSpace={'nowrap'}
                     overflowY={'auto'}
-                    _hover={{ overflowY: 'scroll' }}
+                    //_hover={{ overflowY: 'scroll' }}
                     sx={{
                         '&::-webkit-scrollbar': {
                             width: '10px',

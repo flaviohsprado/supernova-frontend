@@ -1,20 +1,20 @@
 import { IconButton } from '@chakra-ui/react'
 import { useContext } from 'react'
-import { AiFillPlayCircle } from 'react-icons/ai'
+import { FiRepeat } from 'react-icons/fi'
 import { PlayerContext } from '../../../../../contexts/player.context'
 
-export default function PlayButton() {
-    const { setPlaying } = useContext(PlayerContext)
+export default function RepeatButton() {
+    const { repeat, handleRepeat } = useContext(PlayerContext)
 
     return (
         <IconButton
             aria-label={'Play'}
-            icon={<AiFillPlayCircle color={'white'} />}
+            icon={<FiRepeat color={repeat ? '#1DB954' : 'white'} />}
             background={'none'}
             borderRadius={'50%'}
-            fontSize={'3rem'}
+            fontSize={'1rem'}
             _hover={{ background: '#303030' }}
-            onClick={() => setPlaying(true)}
+            onClick={() => handleRepeat()}
         />
     )
 }

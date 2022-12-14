@@ -15,39 +15,14 @@ export default function Player() {
     const [progress, setProgress] = useState(0)
     const [duration, setDuration] = useState(0)
     const [currentTime, setCurrentTime] = useState(0)
-    const [volume, setVolume] = useState(0.3)
-
-    const handleProgress = (state: any) => {
-        setProgress(state.played)
-        console.log('progress', state.played)
-        setCurrentTime(state.playedSeconds)
-        console.log('current time', state.playedSeconds)
-    }
 
     return (
         <Box backgroundColor={'black'} padding={'5'}>
-            <Flex justifyContent={'space-between'}>
+            <Flex justifyContent={'space-around'}>
                 <PlayerInformation />
-                <Stack spacing={6} width={'30%'}>
-                    <Flex justifyContent={'center'}>
-                        <PlayerControls
-                            random={random}
-                            setRandom={setRandom}
-                            setPrevious={setPrevious}
-                            playing={playing}
-                            setPlaying={setPlaying}
-                            setPaused={setPaused}
-                            setNext={setNext}
-                            repeat={repeat}
-                            setRepeat={setRepeat}
-                        />
-                    </Flex>
-
-                    <MusicProgress
-                        duration={duration}
-                        currentTime={currentTime}
-                        setCurrentTime={setCurrentTime}
-                    />
+                <Stack spacing={12} width={'30%'} justifyContent={'center'}>
+                    <PlayerControls />
+                    <MusicProgress />
                 </Stack>
                 <SoundControls />
             </Flex>

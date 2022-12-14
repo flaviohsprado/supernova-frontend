@@ -1,34 +1,23 @@
 import { createContext } from "react";
-
-export interface IPlayerConfiguration {
-    url?: string | null
-    pip?: boolean
-    playing?: boolean
-    controls?: boolean
-    light?: boolean
-    volume?: number
-    muted?: boolean
-    played?: number
-    loaded?: number
-    duration?: number
-    playbackRate?: number
-    loop?: boolean
-    seeking?: boolean
-}
+import { IMusicBasicProps } from "../interfaces/music.interface";
 
 export type PlayerContextType = {
-    state: IPlayerConfiguration,
-    load: (url: string) => void,
-    handlePlayPause: () => void,
-    handleStop: () => void,
-    handleToggleLoop: () => void,
-    handleVolumeChange: (event: any) => void,
-    handleToggleMuted: () => void,
-    handlePlay: () => void,
-    handlePause: () => void,
-    handleSeekChange: (event: any) => void,
-    handleProgress: (state: any) => void,
-    handleDuration: (duration: any) => void,
+    musics?: IMusicBasicProps[],
+    setMusics: (musics: IMusicBasicProps[]) => void,
+    playing: boolean,
+    setPlaying: (playing: boolean) => void,
+    volume: number,
+    handleChangeVolume: (volume: number) => void,
+    random: boolean,
+    handleRandom: () => void,
+    repeat: boolean,
+    handleRepeat: () => void,
+    handleSlide(index: number): void,
+    handleSlideToEnd(): void,
+    handlePreviousMusic(): void,
+    handleNextMusic(): void,
+    musicProgress: number,
+    duration: number,
 }
 
 
