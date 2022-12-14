@@ -1,6 +1,6 @@
 import { Box, Flex, List, ListItem, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import { AiOutlineLock } from 'react-icons/ai'
+import { FiLock } from 'react-icons/fi'
 import { IPlaylist } from '../../../interfaces/playlist.interface'
 
 interface IListPlaylistProps {
@@ -21,6 +21,7 @@ export default function ListPlaylist({ playlists }: IListPlaylistProps) {
                     <Flex
                         justifyContent={'space-between'}
                         alignItems={'baseline'}
+                        padding={'5px'}
                     >
                         <Link
                             key={index}
@@ -42,7 +43,7 @@ export default function ListPlaylist({ playlists }: IListPlaylistProps) {
                         </Link>
                         {!playlist.isPublic && (
                             <Box paddingRight={'15px'}>
-                                <AiOutlineLock color={'white'} />
+                                <FiLock color={'white'} />
                             </Box>
                         )}
                     </Flex>

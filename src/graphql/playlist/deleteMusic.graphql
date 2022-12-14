@@ -1,0 +1,9 @@
+mutation DeleteMusicFromPlaylist($playlistId: String!, $musicId: String!) {
+    DeleteMusicFromPlaylist(playlistId: $playlistId, musicId: $musicId) {
+        title
+        isPublic
+        musics {
+            title
+        }
+    }
+}

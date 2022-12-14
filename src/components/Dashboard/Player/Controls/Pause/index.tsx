@@ -1,20 +1,20 @@
 import { IconButton } from '@chakra-ui/react'
 import { useContext } from 'react'
-import { AiFillPlayCircle } from 'react-icons/ai'
+import { AiFillPauseCircle } from 'react-icons/ai'
 import { PlayerContext } from '../../../../../contexts/player.context'
 
-export default function PlayButton() {
+export default function PauseButton() {
     const { setPlaying } = useContext(PlayerContext)
 
     return (
         <IconButton
             aria-label={'Play'}
-            icon={<AiFillPlayCircle color={'white'} />}
+            icon={<AiFillPauseCircle color={'white'} />}
             background={'none'}
             borderRadius={'50%'}
             fontSize={'3rem'}
             _hover={{ background: '#303030' }}
-            onClick={() => setPlaying(true)}
+            onClick={() => setPlaying(false)}
         />
     )
 }

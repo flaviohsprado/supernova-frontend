@@ -137,7 +137,6 @@ export type Music = {
   duration?: Maybe<Scalars['Float']>;
   file?: Maybe<File>;
   id: Scalars['String'];
-  playlistId: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -147,7 +146,7 @@ export type MusicPresenter = {
   album: Album;
   createdAt: Scalars['DateTime'];
   duration: Scalars['Float'];
-  file: File;
+  file?: Maybe<File>;
   id: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -155,6 +154,8 @@ export type MusicPresenter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  DeleteMusicFromPlaylist: PlaylistPresenter;
+  InsertMusicIntoPlaylist: PlaylistPresenter;
   createAlbum: AlbumPresenter;
   createArtist: ArtistPresenter;
   createMusic: MusicPresenter;
@@ -174,6 +175,18 @@ export type Mutation = {
   updatePlaylist: PlaylistPresenter;
   updateUser: User;
   updateUserFile: User;
+};
+
+
+export type MutationDeleteMusicFromPlaylistArgs = {
+  musicId: Scalars['String'];
+  playlistId: Scalars['String'];
+};
+
+
+export type MutationInsertMusicIntoPlaylistArgs = {
+  musicId: Scalars['String'];
+  playlistId: Scalars['String'];
 };
 
 
@@ -492,14 +505,14 @@ export type DeleteMusicMutation = { __typename?: 'Mutation', deleteMusic: { __ty
 export type FindAllMusicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllMusicsQuery = { __typename?: 'Query', findAllMusic: Array<{ __typename?: 'MusicPresenter', id: string, title: string, duration: number, createdAt: any, updatedAt: any, file: { __typename?: 'File', url: string }, album: { __typename?: 'Album', title: string } }> };
+export type FindAllMusicsQuery = { __typename?: 'Query', findAllMusic: Array<{ __typename?: 'MusicPresenter', id: string, title: string, duration: number, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, album: { __typename?: 'Album', title: string } }> };
 
 export type FindOneMusicQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type FindOneMusicQuery = { __typename?: 'Query', findOneMusic: { __typename?: 'MusicPresenter', id: string, title: string, duration: number, album: { __typename?: 'Album', title: string, file?: { __typename?: 'File', url: string } | null }, file: { __typename?: 'File', url: string } } };
+export type FindOneMusicQuery = { __typename?: 'Query', findOneMusic: { __typename?: 'MusicPresenter', id: string, title: string, duration: number, album: { __typename?: 'Album', title: string, file?: { __typename?: 'File', url: string } | null }, file?: { __typename?: 'File', url: string } | null } };
 
 export type UpdateMusicMutationVariables = Exact<{
   id: Scalars['String'];
@@ -515,7 +528,7 @@ export type UpdateMusicFileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateMusicFileMutation = { __typename?: 'Mutation', updateMusicFile: { __typename?: 'MusicPresenter', id: string, title: string, file: { __typename?: 'File', url: string } } };
+export type UpdateMusicFileMutation = { __typename?: 'Mutation', updateMusicFile: { __typename?: 'MusicPresenter', id: string, title: string, file?: { __typename?: 'File', url: string } | null } };
 
 export type CreatePlaylistMutationVariables = Exact<{
   playlist: CreatePlaylistDto;
@@ -531,6 +544,14 @@ export type DeletePlaylistMutationVariables = Exact<{
 
 export type DeletePlaylistMutation = { __typename?: 'Mutation', deletePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string } };
 
+export type DeleteMusicFromPlaylistMutationVariables = Exact<{
+  playlistId: Scalars['String'];
+  musicId: Scalars['String'];
+}>;
+
+
+export type DeleteMusicFromPlaylistMutation = { __typename?: 'Mutation', DeleteMusicFromPlaylist: { __typename?: 'PlaylistPresenter', title: string, isPublic: boolean, musics?: Array<{ __typename?: 'Music', title: string }> | null } };
+
 export type FindPlaylistsQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['String']>;
 }>;
@@ -538,12 +559,27 @@ export type FindPlaylistsQueryVariables = Exact<{
 
 export type FindPlaylistsQuery = { __typename?: 'Query', findAllPlaylist: Array<{ __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean }> };
 
+export type FindMyPlaylistsQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type FindMyPlaylistsQuery = { __typename?: 'Query', findAllPlaylist: Array<{ __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, musics?: Array<{ __typename?: 'Music', file?: { __typename?: 'File', url: string } | null }> | null }> };
+
 export type FindPLaylistQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
 export type FindPLaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'Music', id: string, title: string, duration?: number | null, file?: { __typename?: 'File', url: string } | null }> | null } };
+
+export type InsertMusicIntoPlaylistMutationVariables = Exact<{
+  playlistId: Scalars['String'];
+  musicId: Scalars['String'];
+}>;
+
+
+export type InsertMusicIntoPlaylistMutation = { __typename?: 'Mutation', InsertMusicIntoPlaylist: { __typename?: 'PlaylistPresenter', title: string, isPublic: boolean, musics?: Array<{ __typename?: 'Music', title: string }> | null } };
 
 export type UpdatePlaylistMutationVariables = Exact<{
   id: Scalars['String'];
@@ -1347,6 +1383,44 @@ export function useDeletePlaylistMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeletePlaylistMutationHookResult = ReturnType<typeof useDeletePlaylistMutation>;
 export type DeletePlaylistMutationResult = Apollo.MutationResult<DeletePlaylistMutation>;
 export type DeletePlaylistMutationOptions = Apollo.BaseMutationOptions<DeletePlaylistMutation, DeletePlaylistMutationVariables>;
+export const DeleteMusicFromPlaylistDocument = gql`
+    mutation DeleteMusicFromPlaylist($playlistId: String!, $musicId: String!) {
+  DeleteMusicFromPlaylist(playlistId: $playlistId, musicId: $musicId) {
+    title
+    isPublic
+    musics {
+      title
+    }
+  }
+}
+    `;
+export type DeleteMusicFromPlaylistMutationFn = Apollo.MutationFunction<DeleteMusicFromPlaylistMutation, DeleteMusicFromPlaylistMutationVariables>;
+
+/**
+ * __useDeleteMusicFromPlaylistMutation__
+ *
+ * To run a mutation, you first call `useDeleteMusicFromPlaylistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMusicFromPlaylistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMusicFromPlaylistMutation, { data, loading, error }] = useDeleteMusicFromPlaylistMutation({
+ *   variables: {
+ *      playlistId: // value for 'playlistId'
+ *      musicId: // value for 'musicId'
+ *   },
+ * });
+ */
+export function useDeleteMusicFromPlaylistMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMusicFromPlaylistMutation, DeleteMusicFromPlaylistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMusicFromPlaylistMutation, DeleteMusicFromPlaylistMutationVariables>(DeleteMusicFromPlaylistDocument, options);
+      }
+export type DeleteMusicFromPlaylistMutationHookResult = ReturnType<typeof useDeleteMusicFromPlaylistMutation>;
+export type DeleteMusicFromPlaylistMutationResult = Apollo.MutationResult<DeleteMusicFromPlaylistMutation>;
+export type DeleteMusicFromPlaylistMutationOptions = Apollo.BaseMutationOptions<DeleteMusicFromPlaylistMutation, DeleteMusicFromPlaylistMutationVariables>;
 export const FindPlaylistsDocument = gql`
     query FindPlaylists($userId: String) {
   findAllPlaylist(userId: $userId) {
@@ -1384,6 +1458,48 @@ export function useFindPlaylistsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type FindPlaylistsQueryHookResult = ReturnType<typeof useFindPlaylistsQuery>;
 export type FindPlaylistsLazyQueryHookResult = ReturnType<typeof useFindPlaylistsLazyQuery>;
 export type FindPlaylistsQueryResult = Apollo.QueryResult<FindPlaylistsQuery, FindPlaylistsQueryVariables>;
+export const FindMyPlaylistsDocument = gql`
+    query FindMyPlaylists($userId: String) {
+  findAllPlaylist(userId: $userId) {
+    id
+    title
+    isPublic
+    musics {
+      file {
+        url
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindMyPlaylistsQuery__
+ *
+ * To run a query within a React component, call `useFindMyPlaylistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMyPlaylistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMyPlaylistsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useFindMyPlaylistsQuery(baseOptions?: Apollo.QueryHookOptions<FindMyPlaylistsQuery, FindMyPlaylistsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMyPlaylistsQuery, FindMyPlaylistsQueryVariables>(FindMyPlaylistsDocument, options);
+      }
+export function useFindMyPlaylistsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMyPlaylistsQuery, FindMyPlaylistsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMyPlaylistsQuery, FindMyPlaylistsQueryVariables>(FindMyPlaylistsDocument, options);
+        }
+export type FindMyPlaylistsQueryHookResult = ReturnType<typeof useFindMyPlaylistsQuery>;
+export type FindMyPlaylistsLazyQueryHookResult = ReturnType<typeof useFindMyPlaylistsLazyQuery>;
+export type FindMyPlaylistsQueryResult = Apollo.QueryResult<FindMyPlaylistsQuery, FindMyPlaylistsQueryVariables>;
 export const FindPLaylistDocument = gql`
     query FindPLaylist($id: String!) {
   findOnePlaylist(id: $id) {
@@ -1437,6 +1553,44 @@ export function useFindPLaylistLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type FindPLaylistQueryHookResult = ReturnType<typeof useFindPLaylistQuery>;
 export type FindPLaylistLazyQueryHookResult = ReturnType<typeof useFindPLaylistLazyQuery>;
 export type FindPLaylistQueryResult = Apollo.QueryResult<FindPLaylistQuery, FindPLaylistQueryVariables>;
+export const InsertMusicIntoPlaylistDocument = gql`
+    mutation InsertMusicIntoPlaylist($playlistId: String!, $musicId: String!) {
+  InsertMusicIntoPlaylist(playlistId: $playlistId, musicId: $musicId) {
+    title
+    isPublic
+    musics {
+      title
+    }
+  }
+}
+    `;
+export type InsertMusicIntoPlaylistMutationFn = Apollo.MutationFunction<InsertMusicIntoPlaylistMutation, InsertMusicIntoPlaylistMutationVariables>;
+
+/**
+ * __useInsertMusicIntoPlaylistMutation__
+ *
+ * To run a mutation, you first call `useInsertMusicIntoPlaylistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertMusicIntoPlaylistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertMusicIntoPlaylistMutation, { data, loading, error }] = useInsertMusicIntoPlaylistMutation({
+ *   variables: {
+ *      playlistId: // value for 'playlistId'
+ *      musicId: // value for 'musicId'
+ *   },
+ * });
+ */
+export function useInsertMusicIntoPlaylistMutation(baseOptions?: Apollo.MutationHookOptions<InsertMusicIntoPlaylistMutation, InsertMusicIntoPlaylistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertMusicIntoPlaylistMutation, InsertMusicIntoPlaylistMutationVariables>(InsertMusicIntoPlaylistDocument, options);
+      }
+export type InsertMusicIntoPlaylistMutationHookResult = ReturnType<typeof useInsertMusicIntoPlaylistMutation>;
+export type InsertMusicIntoPlaylistMutationResult = Apollo.MutationResult<InsertMusicIntoPlaylistMutation>;
+export type InsertMusicIntoPlaylistMutationOptions = Apollo.BaseMutationOptions<InsertMusicIntoPlaylistMutation, InsertMusicIntoPlaylistMutationVariables>;
 export const UpdatePlaylistDocument = gql`
     mutation UpdatePlaylist($id: String!, $playlist: UpdatePlaylistDTO!) {
   updatePlaylist(id: $id, playlist: $playlist) {

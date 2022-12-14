@@ -1,0 +1,12 @@
+query FindMyPlaylists($userId: String) {
+    findAllPlaylist(userId: $userId) {
+        id
+        title
+        isPublic
+        musics {
+            file {
+                url
+            }
+        }
+    }
+}
