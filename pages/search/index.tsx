@@ -8,11 +8,12 @@ import createSimpleColumnHelperObject from '../../src/utils/simpleColumnHelperOb
 
 export default function SearchPageDashboard() {
     const { musics } = useListMusics()
-    const { setMusics } = useContext(PlayerContext)
+    const { setMusics, handleLoad } = useContext(PlayerContext)
 
     const handlePlayer = (music: IMusicBasicProps) => {
+        console.log(music)
         if (music) {
-            setMusics([music])
+            handleLoad([music])
         }
     }
 

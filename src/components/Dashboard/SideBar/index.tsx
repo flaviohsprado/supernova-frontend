@@ -53,7 +53,7 @@ export default function Sidebar({ userId, setPage }: ISidebarProps) {
             <Box padding={'10px 20px 10px 20px'}>
                 <Divider />
             </Box>
-            <ListPlaylist playlists={playlists} />
+            <ListPlaylist playlists={playlists} setPage={setPage} />
         </Box>
     )
 }

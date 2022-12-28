@@ -1,4 +1,4 @@
-query FindPLaylist($id: String!) {
+query FindPlaylist($id: String!) {
     findOnePlaylist(id: $id) {
         id
         title
@@ -18,6 +18,9 @@ query FindPLaylist($id: String!) {
             file {
                 url
             }
+        }
+        file {
+            url
         }
     }
 }

@@ -25,6 +25,10 @@ export default function StyledHorizontalCard({
                 borderRadius={'5px'}
                 minWidth={'20vw'}
                 cursor={'pointer'}
+                _hover={{
+                    backgroundColor: '#363535',
+                    transition: 'all 0.2s ease-in-out',
+                }}
             >
                 <Image
                     objectFit="cover"

@@ -11,10 +11,8 @@ interface IUpdateMusicProps {
 
 export default function UpdateMusic({ id }: IUpdateMusicProps) {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { title, setTitle, file, setFile, handleSubmit } = useUpdateMusic(
-        id,
-        onClose
-    )
+    const { title, setTitle, duration, setDuration, setFile, handleSubmit } =
+        useUpdateMusic(id, onClose)
 
     return (
         <>
@@ -43,6 +41,15 @@ export default function UpdateMusic({ id }: IUpdateMusicProps) {
                         value={title}
                         type={'text'}
                         onUpdated={(value: string) => setTitle(value)}
+                    />
+                    <StyledInput
+                        inputColor={'white'}
+                        labelColor={'white'}
+                        label={'Duration'}
+                        value={duration}
+                        type={'time'}
+                        onUpdated={(value: string) => setDuration(value)}
+                        required={true}
                     />
                     <StyledInputAudioFile
                         label={'Song'}

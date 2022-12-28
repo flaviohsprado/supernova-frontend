@@ -7,7 +7,7 @@ export interface IColumnHelper {
     handlePlay: (music: IMusicBasicProps) => void
 }
 
-export default function createSimpleColumnHelperObject({
+export default function createMusicColumnHelperObject({
     data,
     handlePlay,
 }: IColumnHelper) {
@@ -30,6 +30,22 @@ export default function createSimpleColumnHelperObject({
                         return <PlayButton src={src} />
                     },
                     header: 'Play',
+                })
+            )
+        } else if (key === 'addedAt') {
+            columns.push(
+                columnHelper.display({
+                    cell: (info) => {
+                        // @ts-ignore
+                        const date = new Date(info.cell.row.original.addedAt)
+
+                        return date.toLocaleDateString('en-US', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                        })
+                    },
+                    header: 'Added At',
                 })
             )
         } else {

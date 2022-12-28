@@ -1,25 +1,52 @@
-import { IconButton } from '@chakra-ui/react'
-import { BsPlayFill } from 'react-icons/bs'
-import { IMusicBasicProps } from '../../../interfaces/music.interface'
+import { Box, IconButton } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
+import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai'
 
 export interface IPlayButtonProps {
-    handlePlay(music: IMusicBasicProps): void
-    music: IMusicBasicProps
+    src: string
 }
 
-export default function PlayButton({ handlePlay, music }: IPlayButtonProps) {
+export default function PlayButton({ src }: IPlayButtonProps) {
+    const [playing, setPlaying] = useState(false)
+    const audioRef = useRef(new Audio())
+
+    useEffect(() => {
+        audioRef.current.src = src
+
+        if (playing) {
+            audioRef.current.play()
+        } else {
+            audioRef.current.pause()
+        }
+    }, [playing])
+
     return (
-        <IconButton
-            onClick={() => handlePlay(music)}
-            fontSize={'2xl'}
-            borderRadius={'50%'}
-            aria-label="Play"
-            icon={<BsPlayFill color={'black'} />}
-            bg={'#1DB954'}
-            _hover={{
-                bg: '#179142',
-                color: 'white',
-            }}
-        />
+        <Box marginRight={'10px'}>
+            {playing ? (
+                <IconButton
+                    borderRadius={'50%'}
+                    aria-label="audio"
+                    fontSize="40px"
+                    icon={<AiFillPauseCircle color={'#32cd32'} />}
+                    backgroundColor={'black'}
+                    onClick={() => setPlaying(false)}
+                    _hover={{
+                        backgroundColor: 'white',
+                    }}
+                />
+            ) : (
+                <IconButton
+                    borderRadius={'50%'}
+                    aria-label="audio"
+                    fontSize="40px"
+                    icon={<AiFillPlayCircle color={'#32cd32'} />}
+                    backgroundColor={'black'}
+                    onClick={() => setPlaying(true)}
+                    _hover={{
+                        backgroundColor: 'white',
+                    }}
+                />
+            )}
+        </Box>
     )
 }

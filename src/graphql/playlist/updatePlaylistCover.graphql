@@ -1,0 +1,8 @@
+mutation UpdatePlaylistCover($playlistId: String!, $file: Upload!) {
+    updatePlaylistFile(id: $playlistId, file: $file) {
+        title
+        file {
+            url
+        }
+    }
+}

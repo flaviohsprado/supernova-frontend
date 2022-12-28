@@ -1,37 +1,37 @@
-import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react'
-import { BsPlusSquareFill } from 'react-icons/bs'
-import { useCreateplaylist } from '../../../../hooks/playlist/useCreatePlaylist'
+import { Button, Flex, IconButton, useDisclosure } from '@chakra-ui/react'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { useUpdatePlaylist } from '../../../../hooks/playlist/useUpdatePlaylist'
 import StyledInput from '../../../global/StyledInput'
 import StyledModal from '../../../global/StyledModal'
 import StyledSwitch from '../../../global/StyledSwitch'
 
-interface ICreatePlaylistProps {
-    userId: string
+export interface IUpdateArtistModalProps {
+    playlistId: string
 }
 
-export default function CreatePlaylist({ userId }: ICreatePlaylistProps) {
+export default function UpdatePlaylist({
+    playlistId,
+}: IUpdateArtistModalProps) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { title, setTitle, isPublic, setIsPublic, handleSubmit } =
-        useCreateplaylist(userId, onClose)
+        useUpdatePlaylist(playlistId, onClose)
 
     return (
-        <Box padding={'0 20px 0 20px'}>
-            <Button
-                justifyContent={'left'}
-                width={'100%'}
-                borderRadius={'5px'}
+        <>
+            <IconButton
                 onClick={onOpen}
-                color={'white'}
-                backgroundColor={'transparent'}
+                variant="outline"
+                colorScheme="whiteAlpha"
+                aria-label="update playlistname"
+                icon={<AiOutlineEdit />}
                 _hover={{
-                    bg: '#147a38',
+                    backgroundColor: 'gray',
+                    color: 'white',
                 }}
-                leftIcon={<BsPlusSquareFill />}
-            >
-                Create Playlist
-            </Button>
+            />
+
             <StyledModal
-                title={"Let's create a new Playlist for U!"}
+                title={"Let's update your Playlist to Supernova!"}
                 isOpen={isOpen}
                 onClose={onClose}
                 onOpen={onOpen}
@@ -66,6 +66,6 @@ export default function CreatePlaylist({ userId }: ICreatePlaylistProps) {
                     </Flex>
                 </form>
             </StyledModal>
-        </Box>
+        </>
     )
 }
