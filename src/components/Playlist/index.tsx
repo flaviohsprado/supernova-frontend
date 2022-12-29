@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
+import createPlaylistColumnHelperObject from '../../helpers/playlistColumnObject.helper'
 import { useFindPlaylist } from '../../hooks/playlist/useFindPlaylist'
-import createMusicColumnHelperObject from '../../utils/musicColumnHelperObject.utils'
 import { MusicDatatable } from '../Datatable/musicDatatable'
 import PlaylistHeader from './Header'
 
@@ -25,14 +25,13 @@ export default function Playlist({ id }: IPlaylistProps) {
             id: music.id,
             title: music.title,
             album: String(music.album?.title),
-            addedAt: music.createdAt,
+            addedAt: 'Coming Soon',
             duration: String(music.duration),
             audio: String(music.file?.url),
         })) || []
 
-    const columns = createMusicColumnHelperObject({
+    const columns = createPlaylistColumnHelperObject({
         data: musics,
-        handlePlay: () => {},
     })
 
     return (

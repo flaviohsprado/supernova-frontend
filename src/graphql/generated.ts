@@ -134,6 +134,7 @@ export type File = {
 
 export type Music = {
   __typename?: 'Music';
+  album: Album;
   albumId: Scalars['String'];
   createdAt: Scalars['DateTime'];
   duration?: Maybe<Scalars['Float']>;
@@ -581,7 +582,7 @@ export type FindPlaylistQueryVariables = Exact<{
 }>;
 
 
-export type FindPlaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'Music', id: string, title: string, duration?: number | null, file?: { __typename?: 'File', url: string } | null }> | null, file?: { __typename?: 'File', url: string } | null } };
+export type FindPlaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'Music', id: string, title: string, duration?: number | null, album: { __typename?: 'Album', title: string }, file?: { __typename?: 'File', url: string } | null }> | null, file?: { __typename?: 'File', url: string } | null } };
 
 export type InsertMusicIntoPlaylistMutationVariables = Exact<{
   playlistId: Scalars['String'];
@@ -1536,6 +1537,9 @@ export const FindPlaylistDocument = gql`
       id
       title
       duration
+      album {
+        title
+      }
       file {
         url
       }

@@ -1,21 +1,10 @@
 import { Box } from '@chakra-ui/react'
-import { useContext } from 'react'
 import { DataTable } from '../../src/components/Datatable/datatable'
-import { PlayerContext } from '../../src/contexts/player.context'
+import createSearchColumnHelperObject from '../../src/helpers/searchColumnObject.helper'
 import { useListMusics } from '../../src/hooks/music/useListMusics'
-import { IMusicBasicProps } from '../../src/interfaces/music.interface'
-import createSimpleColumnHelperObject from '../../src/utils/simpleColumnHelperObject.utils'
 
 export default function SearchPageDashboard() {
     const { musics } = useListMusics()
-    const { setMusics, handleLoad } = useContext(PlayerContext)
-
-    const handlePlayer = (music: IMusicBasicProps) => {
-        console.log(music)
-        if (music) {
-            handleLoad([music])
-        }
-    }
 
     const formattedMusics = musics.map((music) => {
         return {
@@ -27,9 +16,8 @@ export default function SearchPageDashboard() {
         }
     })
 
-    const columns = createSimpleColumnHelperObject({
+    const columns = createSearchColumnHelperObject({
         data: formattedMusics,
-        handlePlay: handlePlayer,
     })
 
     return (

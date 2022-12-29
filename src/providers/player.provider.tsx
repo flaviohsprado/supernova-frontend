@@ -62,40 +62,10 @@ export default function PlayerProvider({ children }: IPlayerProviderProps) {
 
     const handleLoad = (musics: IMusicBasicProps[]) => {
         setMusics(musics)
-        setMusicIndex(0)
 
-        // If random is on, turn it off
-        if (random) {
-            setRandom(false)
-        }
+        initializeAudio()
 
-        // If repeat is on, turn it off
-        if (repeat) {
-            setRepeat(false)
-        }
-
-        // If music progress is not 0, set it to 0
-        if (musicProgress !== 0) {
-            setMusicProgress(0)
-        }
-
-        // If music duration is not 0, set it to 0
-        if (duration !== 0) {
-            audioRef.current.currentTime = 0
-        }
-
-        // If audioRef is not paused, pause it
-        if (!audioRef.current.paused) {
-            audioRef.current.pause()
-        }
-
-        // If intervalRef is not cleared, clear it
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current)
-        }
-
-        // play many musics
-
+        //TODO: play many musics
         url = musics[0].url
 
         //set music to audioRef
@@ -178,6 +148,40 @@ export default function PlayerProvider({ children }: IPlayerProviderProps) {
             audioRef.current.loop = true
         } else {
             audioRef.current.loop = false
+        }
+    }
+
+    const initializeAudio = () => {
+        setMusicIndex(0)
+
+        // If random is on, turn it off
+        if (random) {
+            setRandom(false)
+        }
+
+        // If repeat is on, turn it off
+        if (repeat) {
+            setRepeat(false)
+        }
+
+        // If music progress is not 0, set it to 0
+        if (musicProgress !== 0) {
+            setMusicProgress(0)
+        }
+
+        // If music duration is not 0, set it to 0
+        if (duration !== 0) {
+            audioRef.current.currentTime = 0
+        }
+
+        // If audioRef is not paused, pause it
+        if (!audioRef.current.paused) {
+            audioRef.current.pause()
+        }
+
+        // If intervalRef is not cleared, clear it
+        if (intervalRef.current) {
+            clearInterval(0)
         }
     }
 

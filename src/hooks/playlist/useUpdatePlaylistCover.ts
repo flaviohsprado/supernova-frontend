@@ -10,13 +10,11 @@ export const useUpdatePlaylistCover = (playlistId: string, src: string) => {
     const toast = useToast()
 
     const handleCoverChange = async (file: File) => {
-        const apolloFile = new File([file], file.name, { type: file.type })
-
         try {
             await updateCover({
                 variables: {
                     playlistId,
-                    file: apolloFile
+                    file
                 }
             })
     

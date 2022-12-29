@@ -1,22 +1,19 @@
 import { createColumnHelper } from '@tanstack/react-table'
-import PlayButton from '../components/Datatable/PlayButton'
+import ContextPlayButton from '../components/Datatable/ContextPlayButton/indext'
 import { IMusicBasicProps } from '../interfaces/music.interface'
 
 export interface IColumnHelper {
-    data: unknown[]
-    handlePlay: (music: IMusicBasicProps) => void
+    data: any[]
 }
 
-export default function createMusicColumnHelperObject({
+export default function createSearchColumnHelperObject({
     data,
-    handlePlay,
 }: IColumnHelper) {
     const columns: any[] = []
     const columnHelper = createColumnHelper<typeof data>()
 
     if (data.length === 0) return columns
 
-    // @ts-ignore
     for (const [key] of Object.entries(data[0])) {
         const accessor = key as any
 
@@ -24,10 +21,18 @@ export default function createMusicColumnHelperObject({
             columns.push(
                 columnHelper.display({
                     cell: (info) => {
-                        // @ts-ignore
-                        const src: string = String(info.cell.row.original.audio)
+                        const music: IMusicBasicProps = {
+                            // @ts-ignore
+                            id: info.cell.row.original.id,
+                            // @ts-ignore
+                            title: info.cell.row.original.title,
+                            // @ts-ignore
+                            duration: info.cell.row.original.duration,
+                            // @ts-ignore
+                            url: info.cell.row.original.audio,
+                        }
 
-                        return <PlayButton src={src} />
+                        return <ContextPlayButton music={music} />
                     },
                     header: 'Play',
                 })
