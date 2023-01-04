@@ -36,10 +36,11 @@ export default function ProfileMenu({
     return (
         <Menu>
             <MenuButton
+                zIndex={99}
                 as={Button}
                 minW={'170px'}
                 maxH={'31px'}
-                bgColor={'black'}
+                bgColor={'#262626'}
                 borderRadius={'50px'}
                 padding={'initial'}
                 _hover={{
@@ -76,7 +77,12 @@ export default function ProfileMenu({
                     </Box>
                 </Flex>
             </MenuButton>
-            <MenuList bgColor={'black'} textColor={'white'} border={'none'}>
+            <MenuList
+                bgColor={'black'}
+                textColor={'white'}
+                border={'none'}
+                zIndex={99}
+            >
                 <MenuGroup>
                     <MenuItem _hover={{ bgColor: '#474747' }}>Account</MenuItem>
                     <MenuItem

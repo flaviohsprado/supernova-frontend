@@ -20,29 +20,30 @@ export default function Dashboard() {
                 "sidebar main friendbar"
                 "footer footer footer"
             `}
-            gridTemplateRows={'1fr 7fr 2fr'}
+            gridTemplateRows={'1fr 6fr 2fr'}
             gridTemplateColumns={'1fr 4fr 1fr'}
-            minH={'100vh'}
+            maxH={'100vh'}
             gap="1"
             bgColor={'#252525'}
         >
             <GridItem
                 area={'header'}
+                marginTop={1}
                 backgroundColor={'black'}
                 borderRadius={'10px'}
             >
                 <DashboardHeader setPage={setPage} />
             </GridItem>
-            <GridItem area={'sidebar'} padding={'10px'} height={'79vh'}>
+            <GridItem area={'sidebar'} marginLeft={2} marginTop={1}>
                 <Sidebar userId={String(user?.id)} setPage={setPage} />
             </GridItem>
             <GridItem area={'main'}>
                 <Box
+                    backgroundColor={'black'}
                     borderRadius={'10px'}
-                    maxHeight={'68vh'}
+                    maxHeight={'calc(100vh - 32vh)'}
                     whiteSpace={'nowrap'}
                     overflowY={'auto'}
-                    _hover={{ overflowY: 'scroll' }}
                     sx={{
                         '&::-webkit-scrollbar': {
                             width: '10px',
@@ -58,7 +59,7 @@ export default function Dashboard() {
                     {page}
                 </Box>
             </GridItem>
-            <GridItem area={'friendbar'} padding={'10px'} height={'79vh'}>
+            <GridItem area={'friendbar'} marginRight={2} marginTop={1}>
                 <FriendSidebar />
             </GridItem>
             <GridItem
@@ -66,6 +67,9 @@ export default function Dashboard() {
                 backgroundColor={'black'}
                 padding={'10px'}
                 borderRadius={'10px'}
+                marginBottom={2}
+                marginRight={2}
+                marginLeft={2}
             >
                 <Player />
             </GridItem>

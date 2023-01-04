@@ -1,19 +1,29 @@
 import { useToast } from "@chakra-ui/react"
 import { useState } from "react"
-import { useCreateMusicMutation, useFindAllMusicsQuery } from "../../graphql/generated"
+import { CreateMusicDto, useCreateMusicMutation, useFindAllMusicsQuery } from "../../graphql/generated"
 
 export const useCreateMusic = (onClose: () => void) => {
     const [title, setTitle] = useState('')
     const [albumId, setAlbumId] = useState('')
+    const [duration, setDuration] = useState('')
+    const [file, setFile] = useState<File | null>(null)
+
+    const toast = useToast()
+
     const [ createMusic ] = useCreateMusicMutation()
     const { refetch } = useFindAllMusicsQuery()
-    const toast = useToast()
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
+        const newMusic: CreateMusicDto = {
+            title,
+            albumId,
+            duration: convertTimeToSeconds(duration),
+        }
+
         try {
-            await createMusic({ variables: { title, albumId } })
+            await createMusic({ variables: { music: newMusic, file } })
             await refetch()
 
             setTitle('')
@@ -39,5 +49,10 @@ export const useCreateMusic = (onClose: () => void) => {
         }
     }
 
-    return { title, setTitle, albumId, setAlbumId, handleSubmit }
+    return { title, setTitle, duration, setDuration, albumId, file, setFile, setAlbumId, handleSubmit }
+}
+
+const convertTimeToSeconds = (time: string): number => {
+    const [minutes, seconds] = time.split(':')
+    return parseInt(minutes) * 60 + parseInt(seconds)
 }

@@ -4,7 +4,7 @@ import { useFindAllMusicsQuery } from "../../graphql/generated";
 export interface IMusic {
     id: string;
     title: string;
-    duration: number;
+    duration: string;
     createdAt: any;
     updatedAt: any;
     album?: string;
@@ -18,7 +18,7 @@ export const useListMusics = () => {
         return {
             id: music.id,
             title: music.title,
-            duration: music.duration,
+            duration: convertSecondsToTime(music.duration),
             album: music.album?.title,            
             createdAt: format(new Date(music.createdAt), 'dd/MM/yyyy HH:mm:ss'),
             updatedAt: format(new Date(music.updatedAt), 'dd/MM/yyyy HH:mm:ss'),
@@ -27,4 +27,11 @@ export const useListMusics = () => {
     }) || []
 
     return { musics };
+}
+
+const convertSecondsToTime = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60)
+    const secondsLeft = seconds % 60
+
+    return `${minutes}:${secondsLeft}`
 }

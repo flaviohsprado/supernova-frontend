@@ -16,13 +16,10 @@ export default function DashboardHeader({ setPage }: IDashboardHeader) {
 
     return (
         <Flex
-            padding={'10px'}
+            padding={3}
             align="center"
             justifyContent={'space-between'}
-            alignItems={'center'}
-            position={'fixed'}
             width={'60vw'}
-            zIndex={99}
         >
             <Navigator />
             {isAuthenticated ? (

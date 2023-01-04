@@ -2,6 +2,7 @@ import { Box, Divider, Text } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import { IconType } from 'react-icons'
 import { BiHomeAlt, BiLibrary, BiSearch } from 'react-icons/bi'
+import SearchPageDashboard from '../../../../pages/search'
 import { useListPlaylists } from '../../../hooks/playlist/useListPlaylist'
 import { SidebarButton } from '../../global/SidebarButton'
 import HomePageDashboard from '../../Home'
@@ -16,7 +17,7 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Home', icon: BiHomeAlt, page: <HomePageDashboard /> },
-    { name: 'Search', icon: BiSearch },
+    { name: 'Search', icon: BiSearch, page: <SearchPageDashboard /> },
     { name: 'Your Library', icon: BiLibrary },
 ]
 
@@ -52,7 +53,7 @@ export default function Sidebar({ userId, setPage }: ISidebarProps) {
             <Box padding={'10px 20px 10px 20px'}>
                 <Divider />
             </Box>
-            <ListPlaylist playlists={playlists} />
+            <ListPlaylist playlists={playlists} setPage={setPage} />
         </Box>
     )
 }
