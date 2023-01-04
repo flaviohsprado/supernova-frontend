@@ -18,13 +18,13 @@ const friendsMock = [
     },
     {
         avatar: 'https://github.com/flaviohsprado.png',
-        username: 'polengo',
+        username: 'jao',
         isOnline: false,
         musicPlaying: 'The Beatles - Here Comes The Sun',
     },
     {
         avatar: 'https://github.com/flaviohsprado.png',
-        username: 'alele',
+        username: 'jao',
         isOnline: true,
         musicPlaying: 'The Beatles - Here Comes The Sun',
     },

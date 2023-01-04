@@ -1,23 +1,14 @@
 import { Box } from '@chakra-ui/react'
-import { useContext } from 'react'
-import { DataTable } from '../../src/components/Datatable/datatable'
-import { PlayerContext } from '../../src/contexts/player.context'
+import { SearchDatatable } from '../../src/components/Datatable/searchDatatable'
+import createSearchColumnHelperObject from '../../src/helpers/searchColumnObject.helper'
 import { useListMusics } from '../../src/hooks/music/useListMusics'
-import { IMusicBasicProps } from '../../src/interfaces/music.interface'
-import createSimpleColumnHelperObject from '../../src/utils/simpleColumnHelperObject.utils'
 
 export default function SearchPageDashboard() {
     const { musics } = useListMusics()
-    const { setMusics } = useContext(PlayerContext)
-
-    const handlePlayer = (music: IMusicBasicProps) => {
-        if (music) {
-            setMusics([music])
-        }
-    }
 
     const formattedMusics = musics.map((music) => {
         return {
+            id: music.id,
             title: music.title,
             duration: music.duration,
             // @ts-ignore
@@ -26,14 +17,14 @@ export default function SearchPageDashboard() {
         }
     })
 
-    const columns = createSimpleColumnHelperObject({
+    const columns = createSearchColumnHelperObject({
         data: formattedMusics,
-        handlePlay: handlePlayer,
     })
 
+    //TODO: Add a search bar to search for musics with delay of 0.5 second
     return (
         <Box bgColor={'#4a4a4a'} borderRadius={'5px'} height={'68vh'}>
-            <DataTable columns={columns} data={formattedMusics} />
+            <SearchDatatable columns={columns} data={formattedMusics} />
         </Box>
     )
 }

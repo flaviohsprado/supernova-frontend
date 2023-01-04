@@ -1,5 +1,5 @@
 import { Box, Flex, FormLabel, IconButton, Input } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai'
 
 interface IStyledInputFileProps {
@@ -15,7 +15,15 @@ export default function StyledInputAudioFile({
 }: IStyledInputFileProps) {
     const [file, setFile] = useState<File>()
     const [playing, setPlaying] = useState(false)
-    let player = new Audio()
+    const audioRef = useRef(new Audio())
+
+    useEffect(() => {
+        if (playing) {
+            audioRef.current.play()
+        } else {
+            audioRef.current.pause()
+        }
+    }, [playing])
 
     const handleEditAudio = (event: any) => {
         const target = event.target as HTMLInputElement
@@ -24,25 +32,12 @@ export default function StyledInputAudioFile({
         if (file) {
             setFile(file)
             handleFile(file)
+            handleLoadAudio(file)
         }
     }
 
-    const handlePlayAudio = async () => {
-        if (!file) return
-
-        player = new Audio(getUrl(file))
-        player.addEventListener('canplaythrough', function () {
-            player.play()
-        })
-
-        setPlaying(true)
-    }
-
-    const handlePauseAudio = () => {
-        player.pause()
-        player.currentTime = 0
-
-        setPlaying(false)
+    const handleLoadAudio = (file: File) => {
+        audioRef.current.src = URL.createObjectURL(file)
     }
 
     const getUrl = (file: File) => {
@@ -69,7 +64,7 @@ export default function StyledInputAudioFile({
                             aria-label="audio"
                             fontSize="40px"
                             icon={<AiFillPauseCircle />}
-                            onClick={handlePauseAudio}
+                            onClick={() => setPlaying(false)}
                             _hover={{
                                 background: 'none',
                                 color: 'white',
@@ -81,7 +76,7 @@ export default function StyledInputAudioFile({
                             aria-label="audio"
                             fontSize="40px"
                             icon={<AiFillPlayCircle />}
-                            onClick={handlePlayAudio}
+                            onClick={() => setPlaying(true)}
                             _hover={{
                                 background: 'none',
                                 color: 'white',

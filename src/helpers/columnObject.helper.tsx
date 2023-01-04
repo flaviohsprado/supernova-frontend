@@ -1,7 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table'
 import { ReactNode } from 'react'
-import AudioButton from '../components/Datatable/AudioButton'
 import DeleteButton from '../components/Datatable/DeleteButton'
+import PlayButton from '../components/Datatable/PlayButton'
 import UpdateButton from '../components/Datatable/UpdateButton'
 
 export interface IColumnHelper {
@@ -54,7 +54,7 @@ export default function createColumnHelperObject({
                         // @ts-ignore
                         const audio = String(info.cell.row.original.audio)
 
-                        return <AudioButton src={audio} />
+                        return <PlayButton src={audio} />
                     },
                     header: 'audio',
                 })

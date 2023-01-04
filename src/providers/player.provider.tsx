@@ -11,7 +11,7 @@ export default function PlayerProvider({ children }: IPlayerProviderProps) {
         {
             id: '1',
             title: 'SoundHelix Song 1',
-            url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+            url: '',
         },
     ])
     const [musicIndex, setMusicIndex] = useState(0)
@@ -20,11 +20,60 @@ export default function PlayerProvider({ children }: IPlayerProviderProps) {
     const [random, setRandom] = useState(false)
     const [repeat, setRepeat] = useState(false)
     const [playing, setPlaying] = useState(false)
-    const { url } = musics[musicIndex]
+    let { url } = musics[musicIndex]
     const audioRef = useRef(new Audio(String(url)))
     const intervalRef = useRef()
     const isReady = useRef(false)
     const { duration } = audioRef.current
+
+    useEffect(() => {
+        if (playing) {
+            audioRef.current.play()
+            handleStartTimer()
+        } else {
+            audioRef.current.pause()
+        }
+    }, [playing])
+
+    // Handles cleanup and setup when changing tracks
+    useEffect(() => {
+        audioRef.current.pause()
+
+        audioRef.current = new Audio(String(url))
+        setMusicProgress(audioRef.current.currentTime)
+
+        if (isReady.current) {
+            audioRef.current.play()
+            setPlaying(true)
+            handleStartTimer()
+        } else {
+            // Set the isReady ref as true for the next pass
+            isReady.current = true
+        }
+    }, [musicIndex])
+
+    useEffect(() => {
+        // Pause and clean up on unmount
+        return () => {
+            audioRef.current.pause()
+            clearInterval(intervalRef.current)
+        }
+    }, [])
+
+    const handleLoad = (musics: IMusicBasicProps[]) => {
+        setMusics(musics)
+
+        initializeAudio()
+
+        //TODO: play many musics
+        url = musics[0].url
+
+        //set music to audioRef
+        audioRef.current = new Audio(String(url))
+
+        // play the music
+        audioRef.current.play()
+    }
 
     const handleStartTimer = () => {
         // Clear any timers already running
@@ -102,43 +151,44 @@ export default function PlayerProvider({ children }: IPlayerProviderProps) {
         }
     }
 
-    useEffect(() => {
-        if (playing) {
-            audioRef.current.play()
-            handleStartTimer()
-        } else {
+    const initializeAudio = () => {
+        setMusicIndex(0)
+
+        // If random is on, turn it off
+        if (random) {
+            setRandom(false)
+        }
+
+        // If repeat is on, turn it off
+        if (repeat) {
+            setRepeat(false)
+        }
+
+        // If music progress is not 0, set it to 0
+        if (musicProgress !== 0) {
+            setMusicProgress(0)
+        }
+
+        // If music duration is not 0, set it to 0
+        if (duration !== 0) {
+            audioRef.current.currentTime = 0
+        }
+
+        // If audioRef is not paused, pause it
+        if (!audioRef.current.paused) {
             audioRef.current.pause()
         }
-    }, [playing])
 
-    // Handles cleanup and setup when changing tracks
-    useEffect(() => {
-        audioRef.current.pause()
-
-        audioRef.current = new Audio(String(url))
-        setMusicProgress(audioRef.current.currentTime)
-
-        if (isReady.current) {
-            audioRef.current.play()
-            setPlaying(true)
-            handleStartTimer()
-        } else {
-            // Set the isReady ref as true for the next pass
-            isReady.current = true
+        // If intervalRef is not cleared, clear it
+        if (intervalRef.current) {
+            clearInterval(0)
         }
-    }, [musicIndex])
-
-    useEffect(() => {
-        // Pause and clean up on unmount
-        return () => {
-            audioRef.current.pause()
-            clearInterval(intervalRef.current)
-        }
-    }, [])
+    }
 
     return (
         <PlayerContext.Provider
             value={{
+                handleLoad,
                 musics,
                 setMusics,
                 playing,

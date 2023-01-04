@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { IMusicBasicProps } from "../interfaces/music.interface";
 
 export type PlayerContextType = {
+    handleLoad: (musics: IMusicBasicProps[]) => void,
     musics?: IMusicBasicProps[],
     setMusics: (musics: IMusicBasicProps[]) => void,
     playing: boolean,

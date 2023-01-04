@@ -1,12 +1,17 @@
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Image } from '@chakra-ui/react'
 import Link from 'next/link'
 import HomeCarousel from '../src/components/LandingPage/Carousel'
 
 export default function Home() {
     return (
         <>
-            <Box position="relative" w="full" minH={'8.7vh'} bgColor={'black'}>
-                <Flex padding={'8px'} justifyContent={'end'}>
+            <Box w="full" minH={'8vh'} bgColor={'black'}>
+                <Flex padding={5} justifyContent={'space-between'}>
+                    <Image
+                        src={'/images/logo.png'}
+                        width={'45px'}
+                        height={'45px'}
+                    />
                     <Button
                         borderRadius={'20px'}
                         bgColor={'#1DB954'}
