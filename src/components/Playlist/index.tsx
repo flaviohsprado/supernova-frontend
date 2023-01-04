@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import createPlaylistColumnHelperObject from '../../helpers/playlistColumnObject.helper'
 import { useFindPlaylist } from '../../hooks/playlist/useFindPlaylist'
-import { MusicDatatable } from '../Datatable/musicDatatable'
+import { PlaylistDatatable } from '../Datatable/playlistDatatable'
 import PlaylistHeader from './Header'
 
 interface IPlaylistProps {
@@ -26,7 +26,7 @@ export default function Playlist({ id }: IPlaylistProps) {
             title: music.title,
             album: String(music.album?.title),
             addedAt: 'Coming Soon',
-            duration: String(music.duration),
+            duration: convertSecondsToTime(Number(music.duration)),
             audio: String(music.file?.url),
         })) || []
 
@@ -35,8 +35,12 @@ export default function Playlist({ id }: IPlaylistProps) {
     })
 
     return (
-        <>
-            <Box position={'sticky'} top={0} zIndex={1}>
+        <div
+            style={{
+                height: '100%',
+            }}
+        >
+            <Box>
                 <PlaylistHeader
                     playlistId={playlist.id}
                     title={playlist.title}
@@ -46,8 +50,15 @@ export default function Playlist({ id }: IPlaylistProps) {
                 />
             </Box>
             <Box>
-                <MusicDatatable columns={columns} data={musics} />
+                <PlaylistDatatable id={id} columns={columns} data={musics} />
             </Box>
-        </>
+        </div>
     )
+}
+
+const convertSecondsToTime = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60)
+    const secondsLeft = seconds % 60
+
+    return `${minutes}:${secondsLeft}`
 }

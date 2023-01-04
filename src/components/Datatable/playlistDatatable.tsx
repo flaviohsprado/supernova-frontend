@@ -8,18 +8,21 @@ import {
     SortingState,
     useReactTable,
 } from '@tanstack/react-table'
-import * as React from 'react'
+import { useState } from 'react'
+import PlaylistContextMenu from './ContextMenu/Playlist'
 
 export type DataTableProps<Data extends object> = {
+    id: string
     data: Data[]
     columns: ColumnDef<Data, any>[]
 }
 
-export function MusicDatatable<Data extends object>({
+export function PlaylistDatatable<Data extends object>({
+    id,
     data,
     columns,
 }: DataTableProps<Data>) {
-    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [sorting, setSorting] = useState<SortingState>([])
     const table = useReactTable({
         columns,
         data,
@@ -89,56 +92,66 @@ export function MusicDatatable<Data extends object>({
             </Thead>
             <Tbody>
                 {table.getRowModel().rows.map((row, index) => (
-                    <Tr
+                    <PlaylistContextMenu
+                        playlistId={id}
+                        musicId={row.getValue('id')}
                         key={index}
-                        bg={'transparent'}
-                        color={'white'}
-                        _hover={{
-                            bg: 'rgba(181, 181, 181, .1)',
-                            transition: '0.2s',
-                            borderRadius: '10px',
-                        }}
                     >
-                        <Td
-                            borderTopLeftRadius={'10px'}
-                            borderBottomLeftRadius={'10px'}
-                            borderBottom={'none'}
-                        >
-                            {index + 1}
-                        </Td>
-                        {row.getVisibleCells().map((cell, index) => {
-                            // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-                            const meta: any = cell.column.columnDef.meta
-                            return (
-                                //if last cell, add border radius
-                                index === row.getVisibleCells().length - 1 ? (
-                                    <Td
-                                        key={index}
-                                        isNumeric={meta?.isNumeric}
-                                        borderTopRightRadius={'10px'}
-                                        borderBottomRightRadius={'10px'}
-                                        borderBottom={'none'}
-                                    >
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </Td>
-                                ) : (
-                                    <Td
-                                        key={index}
-                                        isNumeric={meta?.isNumeric}
-                                        borderBottom={'none'}
-                                    >
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </Td>
-                                )
-                            )
-                        })}
-                    </Tr>
+                        {(ref) => (
+                            <Tr
+                                key={index}
+                                bg={'transparent'}
+                                color={'white'}
+                                _hover={{
+                                    bg: 'rgba(201, 201, 201, .2)',
+                                    transition: '0.2s',
+                                    borderRadius: '10px',
+                                }}
+                                ref={ref}
+                            >
+                                <Td
+                                    borderTopLeftRadius={'10px'}
+                                    borderBottomLeftRadius={'10px'}
+                                    borderBottom={'none'}
+                                >
+                                    {index + 1}
+                                </Td>
+                                {row.getVisibleCells().map((cell, index) => {
+                                    // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                                    const meta: any = cell.column.columnDef.meta
+                                    return (
+                                        //if last cell, add border radius
+                                        index ===
+                                            row.getVisibleCells().length - 1 ? (
+                                            <Td
+                                                key={index}
+                                                isNumeric={meta?.isNumeric}
+                                                borderTopRightRadius={'10px'}
+                                                borderBottomRightRadius={'10px'}
+                                                borderBottom={'none'}
+                                            >
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext()
+                                                )}
+                                            </Td>
+                                        ) : (
+                                            <Td
+                                                key={index}
+                                                isNumeric={meta?.isNumeric}
+                                                borderBottom={'none'}
+                                            >
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext()
+                                                )}
+                                            </Td>
+                                        )
+                                    )
+                                })}
+                            </Tr>
+                        )}
+                    </PlaylistContextMenu>
                 ))}
             </Tbody>
         </Table>
