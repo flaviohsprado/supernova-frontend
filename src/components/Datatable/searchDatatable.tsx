@@ -97,7 +97,7 @@ export function SearchDatatable<Data extends object>({
                                 bg={'transparent'}
                                 color={'white'}
                                 _hover={{
-                                    bg: 'rgba(181, 181, 181, .1)',
+                                    bg: 'rgba(181, 181, 181, .2)',
                                     transition: '0.2s',
                                     borderRadius: '10px',
                                 }}

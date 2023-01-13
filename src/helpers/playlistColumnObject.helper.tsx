@@ -1,5 +1,5 @@
 import { createColumnHelper } from '@tanstack/react-table'
-import ContextPlayButton from '../components/Datatable/ContextPlayButton/indext'
+import ContextPlayButton from '../components/Datatable/ContextPlayButton'
 import { IMusicBasicProps } from '../interfaces/music.interface'
 
 export interface IColumnHelper {
