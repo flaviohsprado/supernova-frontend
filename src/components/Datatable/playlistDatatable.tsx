@@ -103,7 +103,7 @@ export function PlaylistDatatable<Data extends object>({
                                 bg={'transparent'}
                                 color={'white'}
                                 _hover={{
-                                    bg: 'rgba(201, 201, 201, .2)',
+                                    bg: 'rgba(181, 181, 181, .2)',
                                     transition: '0.2s',
                                     borderRadius: '10px',
                                 }}

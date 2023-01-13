@@ -8,20 +8,21 @@ export interface IContextPlayButtonProps {
     music: IMusicBasicProps
 }
 
-export default function ContextPlayButton({ music }: IContextPlayButtonProps) {
+export default function StyledPlayButton({ music }: IContextPlayButtonProps) {
     const { handleLoad } = useContext(PlayerContext)
 
     return (
-        <Box marginRight={'10px'}>
+        <Box marginRight={'10px'} backgroundColor={'transparent '}>
             <IconButton
                 borderRadius={'50%'}
+                border={'none'}
                 aria-label="audio"
-                fontSize="40px"
+                fontSize="45px"
                 icon={<AiFillPlayCircle color={'#32cd32'} />}
-                backgroundColor={'black'}
+                backgroundColor={'transparent'}
                 onClick={() => handleLoad([music])}
                 _hover={{
-                    backgroundColor: 'white',
+                    transform: 'scale(1.07)',
                 }}
             />
         </Box>

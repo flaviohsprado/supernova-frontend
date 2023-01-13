@@ -32,6 +32,7 @@ export default function PlayButton({ src }: IPlayButtonProps) {
                     onClick={() => setPlaying(false)}
                     _hover={{
                         backgroundColor: 'white',
+                        transform: 'scale(1.05)',
                     }}
                 />
             ) : (
@@ -44,6 +45,7 @@ export default function PlayButton({ src }: IPlayButtonProps) {
                     onClick={() => setPlaying(true)}
                     _hover={{
                         backgroundColor: 'white',
+                        transform: 'scale(1.05)',
                     }}
                 />
             )}
