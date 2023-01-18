@@ -9,7 +9,18 @@ query FindAllMusics {
             url
         }
         album {
+            id
             title
+            artistId
+            releaseDate
+            createdAt
+            updatedAt
+            file {
+                url
+            }
+            artist {
+                name
+            }
         }
     }
 }

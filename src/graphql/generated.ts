@@ -19,6 +19,7 @@ export type Scalars = {
 
 export type Album = {
   __typename?: 'Album';
+  artist: Artist;
   artistId: Scalars['String'];
   createdAt: Scalars['DateTime'];
   file?: Maybe<File>;
@@ -516,14 +517,14 @@ export type DeleteMusicMutation = { __typename?: 'Mutation', deleteMusic: { __ty
 export type FindAllMusicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllMusicsQuery = { __typename?: 'Query', findAllMusic: Array<{ __typename?: 'MusicPresenter', id: string, title: string, duration: number, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, album: { __typename?: 'Album', title: string } }> };
+export type FindAllMusicsQuery = { __typename?: 'Query', findAllMusic: Array<{ __typename?: 'MusicPresenter', id: string, title: string, duration: number, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, album: { __typename?: 'Album', id: string, title: string, artistId: string, releaseDate?: any | null, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, artist: { __typename?: 'Artist', name: string } } }> };
 
 export type FindOneMusicQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type FindOneMusicQuery = { __typename?: 'Query', findOneMusic: { __typename?: 'MusicPresenter', id: string, title: string, duration: number, album: { __typename?: 'Album', title: string, file?: { __typename?: 'File', url: string } | null }, file?: { __typename?: 'File', url: string } | null } };
+export type FindOneMusicQuery = { __typename?: 'Query', findOneMusic: { __typename?: 'MusicPresenter', id: string, title: string, duration: number, album: { __typename?: 'Album', id: string, title: string, artistId: string, releaseDate?: any | null, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, artist: { __typename?: 'Artist', name: string } }, file?: { __typename?: 'File', url: string } | null } };
 
 export type UpdateMusicMutationVariables = Exact<{
   id: Scalars['String'];
@@ -582,7 +583,7 @@ export type FindPlaylistQueryVariables = Exact<{
 }>;
 
 
-export type FindPlaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'Music', id: string, title: string, duration?: number | null, album: { __typename?: 'Album', title: string }, file?: { __typename?: 'File', url: string } | null }> | null, file?: { __typename?: 'File', url: string } | null } };
+export type FindPlaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'Music', id: string, title: string, duration?: number | null, album: { __typename?: 'Album', id: string, title: string, artistId: string, releaseDate?: any | null, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, artist: { __typename?: 'Artist', name: string } }, file?: { __typename?: 'File', url: string } | null }> | null, file?: { __typename?: 'File', url: string } | null } };
 
 export type InsertMusicIntoPlaylistMutationVariables = Exact<{
   playlistId: Scalars['String'];
@@ -1184,7 +1185,18 @@ export const FindAllMusicsDocument = gql`
       url
     }
     album {
+      id
       title
+      artistId
+      releaseDate
+      createdAt
+      updatedAt
+      file {
+        url
+      }
+      artist {
+        name
+      }
     }
   }
 }
@@ -1223,9 +1235,17 @@ export const FindOneMusicDocument = gql`
     title
     duration
     album {
+      id
       title
+      artistId
+      releaseDate
+      createdAt
+      updatedAt
       file {
         url
+      }
+      artist {
+        name
       }
     }
     file {
@@ -1538,7 +1558,18 @@ export const FindPlaylistDocument = gql`
       title
       duration
       album {
+        id
         title
+        artistId
+        releaseDate
+        createdAt
+        updatedAt
+        file {
+          url
+        }
+        artist {
+          name
+        }
       }
       file {
         url

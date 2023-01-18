@@ -38,7 +38,7 @@ export default function SoundControls() {
     }
 
     return (
-        <Box width={'300px'}>
+        <Box maxW={'20em'} marginLeft={'12em'}>
             <Flex justifyContent={'space-between'}>
                 <IconButton
                     aria-label={'mute/with sound'}

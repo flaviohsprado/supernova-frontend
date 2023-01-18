@@ -12,6 +12,8 @@ export default function SearchPageDashboard() {
             title: music.title,
             duration: music.duration,
             // @ts-ignore
+            artist: music.album?.artist?.name,
+            // @ts-ignore
             album: music.album?.title,
             audio: music.audio,
         }

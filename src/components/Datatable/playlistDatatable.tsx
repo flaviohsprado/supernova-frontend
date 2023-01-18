@@ -31,6 +31,10 @@ export function PlaylistDatatable<Data extends object>({
         getSortedRowModel: getSortedRowModel(),
         state: {
             sorting,
+            columnVisibility: {
+                id: false,
+                artist: false,
+            },
         },
     })
 

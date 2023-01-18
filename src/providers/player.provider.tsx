@@ -11,6 +11,7 @@ export default function PlayerProvider({ children }: IPlayerProviderProps) {
         {
             id: '1',
             title: 'SoundHelix Song 1',
+            artist: 'SoundHelix',
             url: '',
         },
     ])
