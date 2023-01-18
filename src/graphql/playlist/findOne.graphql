@@ -16,7 +16,18 @@ query FindPlaylist($id: String!) {
             title
             duration
             album {
+                id
                 title
+                artistId
+                releaseDate
+                createdAt
+                updatedAt
+                file {
+                    url
+                }
+                artist {
+                    name
+                }
             }
             file {
                 url

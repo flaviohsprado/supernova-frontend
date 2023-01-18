@@ -1,5 +1,5 @@
-import { IAlbum } from "./album.interface"
-import { IFile } from "./file.interface"
+import { IAlbum } from './album.interface'
+import { IFile } from './file.interface'
 
 export interface IMusic {
     id: string
@@ -14,6 +14,8 @@ export interface IMusic {
 export interface IMusicBasicProps {
     id: string
     title: string
+    artist: string
     duration?: number
     url?: string
+    cover?: string
 }

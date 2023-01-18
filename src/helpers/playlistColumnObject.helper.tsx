@@ -24,9 +24,6 @@ export default function createPlaylistColumnHelperObject({
                 columnHelper.accessor(accessor, {
                     cell: (info) => info.getValue(),
                     header: key,
-                    meta: {
-                        hidden: true,
-                    },
                 })
             )
         } else if (key === 'audio') {
@@ -40,6 +37,8 @@ export default function createPlaylistColumnHelperObject({
                             title: info.cell.row.original.title,
                             // @ts-ignore
                             duration: info.cell.row.original.duration,
+                            // @ts-ignore
+                            artist: info.cell.row.original.artist,
                             // @ts-ignore
                             url: info.cell.row.original.audio,
                         }

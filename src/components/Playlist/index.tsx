@@ -25,6 +25,7 @@ export default function Playlist({ id }: IPlaylistProps) {
             id: music.id,
             title: music.title,
             album: String(music.album?.title),
+            artist: String(music.album?.artist?.name),
             addedAt: 'Coming Soon',
             duration: convertSecondsToTime(Number(music.duration)),
             audio: String(music.file?.url),

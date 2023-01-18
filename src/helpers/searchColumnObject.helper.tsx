@@ -29,6 +29,8 @@ export default function createSearchColumnHelperObject({
                             // @ts-ignore
                             duration: info.cell.row.original.duration,
                             // @ts-ignore
+                            artist: info.cell.row.original.artist,
+                            // @ts-ignore
                             url: info.cell.row.original.audio,
                         }
 
