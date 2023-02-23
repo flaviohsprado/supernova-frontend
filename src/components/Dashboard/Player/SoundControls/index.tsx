@@ -19,18 +19,18 @@ import {
 import { PlayerContext } from '../../../../contexts/player.context'
 
 export default function SoundControls() {
-    const { state, handleVolumeChange } = useContext(PlayerContext)
+    const { volume, handleChangeVolume } = useContext(PlayerContext)
 
     const returnIconSound = () => {
-        if (state.muted) return <ImVolumeMute2 color={'white'} />
+        if (volume === 0) return <ImVolumeMute2 color={'white'} />
 
-        if (state.volume === 0) {
+        if (volume === 0) {
             return <ImVolumeMute color={'white'} />
-        } else if (Number(state.volume) <= 0.3) {
+        } else if (Number(volume) <= 0.3) {
             return <ImVolumeLow color={'white'} />
-        } else if (Number(state.volume) > 0.3 && Number(state.volume) <= 0.6) {
+        } else if (Number(volume) > 0.3 && Number(volume) <= 0.6) {
             return <ImVolumeMedium color={'white'} />
-        } else if (Number(state.volume) > 0.6) {
+        } else if (Number(volume) > 0.6) {
             return <ImVolumeHigh color={'white'} />
         } else {
             return <ImVolumeMute color={'white'} />
@@ -38,7 +38,7 @@ export default function SoundControls() {
     }
 
     return (
-        <Box width={'300px'}>
+        <Box maxW={'20em'} marginLeft={'12em'}>
             <Flex justifyContent={'space-between'}>
                 <IconButton
                     aria-label={'mute/with sound'}
@@ -48,10 +48,9 @@ export default function SoundControls() {
                     _hover={{ background: '#303030' }}
                 />
                 <Slider
-                    value={state.volume}
-                    onChange={(value) => handleVolumeChange(value)}
                     aria-label="volume"
-                    defaultValue={0.3}
+                    value={volume}
+                    onChange={(value) => handleChangeVolume(value)}
                     min={0}
                     max={1}
                     step={0.01}

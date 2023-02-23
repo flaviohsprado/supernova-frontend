@@ -1,5 +1,5 @@
 export interface IFile {
-    id: String
+    id?: String
     originalname?: String
     ownerId?: String
     ownerType?: String

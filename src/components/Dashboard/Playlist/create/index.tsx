@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormLabel, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react'
 import { BsPlusSquareFill } from 'react-icons/bs'
 import { useCreateplaylist } from '../../../../hooks/playlist/useCreatePlaylist'
 import StyledInput from '../../../global/StyledInput'
@@ -46,10 +46,8 @@ export default function CreatePlaylist({ userId }: ICreatePlaylistProps) {
                         onUpdated={(value: string) => setTitle(value)}
                         required={true}
                     />
-                    <FormLabel paddingLeft={'16px'} color={'white'}>
-                        Public?
-                    </FormLabel>
                     <StyledSwitch
+                        label={'Public?'}
                         isChecked={isPublic}
                         onUpdated={(value: boolean) => setIsPublic(value)}
                     />

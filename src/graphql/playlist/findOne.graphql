@@ -1,4 +1,4 @@
-query FindPLaylist($id: String!) {
+query FindPlaylist($id: String!) {
     findOnePlaylist(id: $id) {
         id
         title
@@ -15,9 +15,24 @@ query FindPLaylist($id: String!) {
             id
             title
             duration
+            album {
+                id
+                title
+                createdAt
+                updatedAt
+                file {
+                    url
+                }
+                artist {
+                    name
+                }
+            }
             file {
                 url
             }
+        }
+        file {
+            url
         }
     }
 }

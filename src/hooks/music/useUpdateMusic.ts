@@ -6,6 +6,7 @@ import { useUpdateMusicFile } from "./useUpdateMusicFile"
 
 export const useUpdateMusic = (id: string, onClose: () => void) => {
     const [title, setTitle] = useState('')
+    const [duration, setDuration] = useState('')
     const [file, setFile] = useState<File | null>(null)
 
     const toast = useToast()
@@ -15,11 +16,12 @@ export const useUpdateMusic = (id: string, onClose: () => void) => {
     const { refetch } = useFindAllMusicsQuery()
 
     const music: UpdateMusicDto = {
-        title
+        title,
+        duration: convertTimeToSeconds(duration)
     } 
 
     const handleSubmit = async (event: any) => {
-        event.preventDefault();        
+        event.preventDefault();
 
         try {
             if (file) await handleSubmitUpdateMusicFile(id, file)
@@ -47,5 +49,10 @@ export const useUpdateMusic = (id: string, onClose: () => void) => {
         }
     };
 
-    return { title, setTitle, file, setFile, handleSubmit };
+    return { title, setTitle, duration, setDuration, file, setFile, handleSubmit };
+}
+
+const convertTimeToSeconds = (time: string) => {
+    const [minutes, seconds] = time.split(':')
+    return parseInt(minutes) * 60 + parseInt(seconds)
 }

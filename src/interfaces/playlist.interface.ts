@@ -1,3 +1,4 @@
+import { IFile } from "./file.interface"
 import { IMusic } from "./music.interface"
 import { IUser } from "./user.interface"
 
@@ -10,5 +11,6 @@ export interface IPlaylist {
     user?: IUser
     createdAt?: Date | string
     updatedAt?: Date | string
-    musics?: IMusic[]
+    musics?: IMusic[] | null | undefined
+    file?: IFile | null | undefined
 }
