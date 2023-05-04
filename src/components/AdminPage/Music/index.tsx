@@ -1,10 +1,10 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { useDeleteMusic } from "../../../hooks/music/useDeleteMusic";
-import { useListMusics } from "../../../hooks/music/useListMusics";
-import createColumnHelperObject from "../../../utils/columnHelperObject.utils";
-import { DataTable } from "../../Datatable/datatable";
-import CreateMusic from "./create";
-import UpdateMusic from "./update";
+import { Box, Flex } from '@chakra-ui/react'
+import createColumnHelperObject from '../../../helpers/columnObject.helper'
+import { useDeleteMusic } from '../../../hooks/music/useDeleteMusic'
+import { useListMusics } from '../../../hooks/music/useListMusics'
+import { DataTable } from '../../Datatable/datatable'
+import CreateMusic from './create'
+import UpdateMusic from './update'
 
 export default function MusicPage() {
     const { musics } = useListMusics()
@@ -13,7 +13,7 @@ export default function MusicPage() {
     const columns = createColumnHelperObject({
         data: musics,
         handleDelete: handleDeleteMusic,
-        updateChildren: <UpdateMusic id={''}/>
+        updateChildren: <UpdateMusic id={''} />,
     })
 
     return (
@@ -23,11 +23,8 @@ export default function MusicPage() {
             </Flex>
             <Box minH={'20px'}></Box>
             <Box bgColor={'#4a4a4a'} borderRadius={'5px'}>
-                <DataTable
-                    columns={columns}
-                    data={musics}
-                />
+                <DataTable columns={columns} data={musics} />
             </Box>
         </Box>
-    );
+    )
 }

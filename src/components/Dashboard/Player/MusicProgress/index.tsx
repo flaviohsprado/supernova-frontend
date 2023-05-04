@@ -25,8 +25,8 @@ export default function MusicProgress() {
                     onMouseUp={handleSlideToEnd}
                     onKeyUp={handleSlideToEnd}
                 >
-                    <SliderTrack bg={'white'}>
-                        <SliderFilledTrack bg={'#1DB954'} />
+                    <SliderTrack bg={'primary.light'}>
+                        <SliderFilledTrack bg={'primary.main'} />
                     </SliderTrack>
                     <SliderThumb boxSize={3} />
                 </Slider>

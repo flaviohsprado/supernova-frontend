@@ -6,7 +6,6 @@ query FindOneMusic($id: String!) {
         album {
             id
             title
-            artistId
             releaseDate
             createdAt
             updatedAt
