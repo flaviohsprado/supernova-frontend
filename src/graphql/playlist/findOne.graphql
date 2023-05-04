@@ -18,6 +18,7 @@ query FindPlaylist($id: String!) {
             album {
                 id
                 title
+                releaseDate
                 createdAt
                 updatedAt
                 file {

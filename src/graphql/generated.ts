@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -583,7 +583,7 @@ export type FindPlaylistQueryVariables = Exact<{
 }>;
 
 
-export type FindPlaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'MusicPresenter', id: string, title: string, duration: number, album: { __typename?: 'AlbumPresenter', id: string, title: string, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, artist?: { __typename?: 'Artist', name: string } | null }, file?: { __typename?: 'File', url: string } | null }> | null, file?: { __typename?: 'File', url: string } | null } };
+export type FindPlaylistQuery = { __typename?: 'Query', findOnePlaylist: { __typename?: 'PlaylistPresenter', id: string, title: string, isPublic: boolean, numberOfSongs?: number | null, duration?: number | null, user?: { __typename?: 'User', username: string, file?: { __typename?: 'File', url: string } | null } | null, musics?: Array<{ __typename?: 'MusicPresenter', id: string, title: string, duration: number, album: { __typename?: 'AlbumPresenter', id: string, title: string, releaseDate: any, createdAt: any, updatedAt: any, file?: { __typename?: 'File', url: string } | null, artist?: { __typename?: 'Artist', name: string } | null }, file?: { __typename?: 'File', url: string } | null }> | null, file?: { __typename?: 'File', url: string } | null } };
 
 export type InsertMusicIntoPlaylistMutationVariables = Exact<{
   playlistId: Scalars['String'];
@@ -1558,6 +1558,7 @@ export const FindPlaylistDocument = gql`
       album {
         id
         title
+        releaseDate
         createdAt
         updatedAt
         file {

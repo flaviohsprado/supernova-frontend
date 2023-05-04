@@ -37,7 +37,7 @@ export default function ListPlaylist({
                         color={'white'}
                         justifyContent={'space-between'}
                         _hover={{
-                            background: 'gray.600',
+                            background: 'primary.dark',
                             color: 'gray.300',
                         }}
                     >

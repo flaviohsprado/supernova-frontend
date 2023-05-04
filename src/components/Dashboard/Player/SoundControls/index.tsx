@@ -55,8 +55,8 @@ export default function SoundControls() {
                     max={1}
                     step={0.01}
                 >
-                    <SliderTrack bg={'green.200'}>
-                        <SliderFilledTrack bg={'#1DB954'} />
+                    <SliderTrack bg={'primary.light'}>
+                        <SliderFilledTrack bg={'primary.main'} />
                     </SliderTrack>
                     <SliderThumb boxSize={5}>
                         <Box color={'black'} as={BsSoundwave} />

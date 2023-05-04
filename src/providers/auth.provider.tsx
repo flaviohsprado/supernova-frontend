@@ -26,17 +26,27 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
         if (token) {
             const fetchData = async () => await findUserQuery()
 
-            fetchData().then((data) => {
-                const { findUser } = data
+            fetchData()
+                .then((data) => {
+                    const { findUser } = data
 
-                if (findUser) {
-                    setUser({
-                        id: findUser.id,
-                        username: findUser.username,
-                        avatar: String(findUser.file?.url),
+                    if (findUser) {
+                        setUser({
+                            id: findUser.id,
+                            username: findUser.username,
+                            avatar: String(findUser.file?.url),
+                        })
+                    }
+                })
+                .catch(() => {
+                    setCookie(undefined, 'nextauth.token', '', {
+                        maxAge: 0,
                     })
-                }
-            })
+
+                    setUser(null)
+
+                    router.push('/')
+                })
         }
     }, [])
 
