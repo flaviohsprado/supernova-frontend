@@ -19,13 +19,11 @@ export const SidebarButton = ({
             align="center"
             padding="4"
             mx="4"
-            borderRadius="lg"
+            borderRadius="5px"
             role="group"
             cursor="pointer"
-            bgColor={isActiveButton ? '#1DB954' : 'inherit'}
             _hover={{
-                bg: '#1DB954',
-                color: 'white',
+                bg: 'primary.main',
                 transition: '0.2s',
             }}
             {...rest}

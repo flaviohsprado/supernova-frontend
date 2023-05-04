@@ -1,15 +1,15 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { useDeleteAlbum } from "../../../hooks/album/useDeleteAlbum";
-import { IAlbum, useFindAllAlbums } from "../../../hooks/album/useListAlbum";
-import createColumnHelperObject from "../../../utils/columnHelperObject.utils";
-import { DataTable } from "../../Datatable/datatable";
-import CreateAlbum from "./create";
-import UpdateAlbum from "./update";
+import { Box, Flex } from '@chakra-ui/react'
+import createColumnHelperObject from '../../../helpers/columnObject.helper'
+import { useDeleteAlbum } from '../../../hooks/album/useDeleteAlbum'
+import { IAlbum, useFindAllAlbums } from '../../../hooks/album/useListAlbum'
+import { DataTable } from '../../Datatable/datatable'
+import CreateAlbum from './create'
+import UpdateAlbum from './update'
 
 interface IAlbumColumn extends IAlbum {
-    deleteAction?: string;
-    updateAction?: string;
-    fixed?: string;
+    deleteAction?: string
+    updateAction?: string
+    fixed?: string
 }
 
 export default function AlbumPage() {
@@ -19,7 +19,7 @@ export default function AlbumPage() {
     const columns = createColumnHelperObject({
         data: albums,
         handleDelete: handleDeleteAlbum,
-        updateChildren: <UpdateAlbum id={''}/>
+        updateChildren: <UpdateAlbum id={''} />,
     })
 
     return (
@@ -29,11 +29,8 @@ export default function AlbumPage() {
             </Flex>
             <Box minH={'20px'}></Box>
             <Box bgColor={'#4a4a4a'} borderRadius={'5px'}>
-                <DataTable
-                    columns={columns}
-                    data={albums}
-                />                
+                <DataTable columns={columns} data={albums} />
             </Box>
         </Box>
-    );
+    )
 }

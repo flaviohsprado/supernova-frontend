@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Image } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Box, Flex, Image } from '@chakra-ui/react'
+import Signin from '../src/components/Authentication/Login'
 import HomeCarousel from '../src/components/LandingPage/Carousel'
 
 export default function Home() {
@@ -12,16 +12,7 @@ export default function Home() {
                         width={'45px'}
                         height={'45px'}
                     />
-                    <Button
-                        borderRadius={'20px'}
-                        bgColor={'#1DB954'}
-                        color={'white'}
-                        _hover={{
-                            bg: '#147a38',
-                        }}
-                    >
-                        <Link href={'/authentication/login'}>Login</Link>
-                    </Button>
+                    <Signin />
                 </Flex>
             </Box>
             <HomeCarousel />

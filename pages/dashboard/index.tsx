@@ -59,7 +59,12 @@ export default function Dashboard() {
                     {page}
                 </Box>
             </GridItem>
-            <GridItem area={'friendbar'} marginRight={2} marginTop={1}>
+            <GridItem
+                backgroundColor={'black'}
+                area={'friendbar'}
+                marginRight={2}
+                marginTop={1}
+            >
                 <FriendSidebar />
             </GridItem>
             <GridItem

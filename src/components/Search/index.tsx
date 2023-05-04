@@ -6,15 +6,24 @@ import {
     Input,
     InputGroup,
     InputRightElement,
+    Stack,
 } from '@chakra-ui/react'
 import { useEffect } from 'react'
+import createSearchColumnHelperObject from '../../helpers/searchColumnObject.helper'
+import { useListMusics } from '../../hooks/music/useListMusics'
 import { useSearchMusicByName } from '../../hooks/youtube/useSearchMusicByName'
+import { SearchDatatable } from '../Datatable/searchDatatable'
 import SearchCard from './Card'
 
 export default function SearchBar() {
     const { name, setName, videos, handleSearchMusic } = useSearchMusicByName()
+    const { musics } = useListMusics()
 
     useEffect(() => {}, [videos])
+
+    const columns = createSearchColumnHelperObject({
+        data: musics,
+    })
 
     return (
         <>
@@ -34,7 +43,8 @@ export default function SearchBar() {
                         borderRadius={'20px'}
                         onKeyUp={async (e) => {
                             if (e.key === 'Enter' && name.length) {
-                                await handleSearchMusic()
+                                //Remove comment above to enable search on enter
+                                //await handleSearchMusic()
                             }
                         }}
                     />
@@ -43,18 +53,21 @@ export default function SearchBar() {
                     </InputRightElement>
                 </InputGroup>
             </Box>
-            <Flex justifyContent={'space-between'} flexWrap={'wrap'}>
-                {videos.map((video, index) => (
-                    <SearchCard
-                        key={index}
-                        id={video.id}
-                        cover={video.thumbnail}
-                        title={shortenVideoName(String(video.title))}
-                        artist={video.artist}
-                        type={'music'}
-                    />
-                ))}
-            </Flex>
+            <Stack>
+                <Flex justifyContent={'space-between'} flexWrap={'wrap'}>
+                    {videos.map((video, index) => (
+                        <SearchCard
+                            key={index}
+                            id={video.id}
+                            cover={video.thumbnail}
+                            title={shortenVideoName(String(video.title))}
+                            artist={video.artist}
+                            type={'music'}
+                        />
+                    ))}
+                </Flex>
+                <SearchDatatable columns={columns} data={musics} />
+            </Stack>
         </>
     )
 }

@@ -15,8 +15,6 @@ export const useSearchMusicByName = () => {
     const [videos, setVideos] = useState<IVideo[]>([{}] as IVideo[])
 
     const handleSearchMusic = async () => {
-        console.log('searching music')
-
         let videosInfo: IVideo[] = []
         const youtubeService = new YoutubeService()
         const videos: IYoutubeServiceResponse[] =
@@ -41,7 +39,6 @@ export const useSearchMusicByName = () => {
 
             console.log(videosInfo)
             setVideos(videosInfo)
-            console.log('setted video')
         }
     }
 

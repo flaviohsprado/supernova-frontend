@@ -74,10 +74,10 @@ const friendsMock = [
 
 export default function FriendSidebar() {
     return (
-        <Box bg={'black'} borderRadius={'10px'} height={'100%'}>
+        <Box height={'100%'} padding={'0.5rem'}>
             <SidebarButton icon={TiUserAddOutline}>
                 <Text fontWeight="bold" color={'white'}>
-                    New friends!
+                    Add New friends!
                 </Text>
             </SidebarButton>
             <Box padding={'10px 20px 10px 20px'}>
