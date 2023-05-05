@@ -1,11 +1,12 @@
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
-import { chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Table, Tbody, Td, Th, Thead, Tr, chakra } from '@chakra-ui/react'
 import {
     ColumnDef,
+    SortingState,
+    VisibilityState,
     flexRender,
     getCoreRowModel,
     getSortedRowModel,
-    SortingState,
     useReactTable,
 } from '@tanstack/react-table'
 import { useState } from 'react'
@@ -15,12 +16,14 @@ export type DataTableProps<Data extends object> = {
     id: string
     data: Data[]
     columns: ColumnDef<Data, any>[]
+    hiddenColumns?: VisibilityState
 }
 
 export function PlaylistDatatable<Data extends object>({
     id,
     data,
     columns,
+    hiddenColumns,
 }: DataTableProps<Data>) {
     const [sorting, setSorting] = useState<SortingState>([])
     const table = useReactTable({
@@ -31,10 +34,7 @@ export function PlaylistDatatable<Data extends object>({
         getSortedRowModel: getSortedRowModel(),
         state: {
             sorting,
-            columnVisibility: {
-                id: false,
-                artist: false,
-            },
+            columnVisibility: hiddenColumns,
         },
     })
 

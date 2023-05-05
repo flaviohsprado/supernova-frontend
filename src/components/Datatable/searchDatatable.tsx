@@ -1,11 +1,12 @@
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
-import { chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Table, Tbody, Td, Th, Thead, Tr, chakra } from '@chakra-ui/react'
 import {
     ColumnDef,
+    SortingState,
+    VisibilityState,
     flexRender,
     getCoreRowModel,
     getSortedRowModel,
-    SortingState,
     useReactTable,
 } from '@tanstack/react-table'
 import { useState } from 'react'
@@ -14,11 +15,13 @@ import SearchContextMenu from './ContextMenu/Search'
 export type DataTableProps<Data extends object> = {
     data: Data[]
     columns: ColumnDef<Data, any>[]
+    hiddenColumns?: VisibilityState
 }
 
 export function SearchDatatable<Data extends object>({
     data,
     columns,
+    hiddenColumns,
 }: DataTableProps<Data>) {
     const [sorting, setSorting] = useState<SortingState>([])
     const table = useReactTable({
@@ -29,6 +32,7 @@ export function SearchDatatable<Data extends object>({
         getSortedRowModel: getSortedRowModel(),
         state: {
             sorting,
+            columnVisibility: hiddenColumns,
         },
     })
 

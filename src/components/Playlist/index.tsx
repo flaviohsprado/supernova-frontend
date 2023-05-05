@@ -29,6 +29,7 @@ export default function Playlist({ id }: IPlaylistProps) {
             addedAt: 'Coming Soon',
             duration: convertSecondsToTime(Number(music.duration)),
             audio: String(music.file?.url),
+            cover: String(music.album?.file?.url),
         })) || []
 
     const columns = createPlaylistColumnHelperObject({
@@ -51,7 +52,16 @@ export default function Playlist({ id }: IPlaylistProps) {
                 />
             </Box>
             <Box>
-                <PlaylistDatatable id={id} columns={columns} data={musics} />
+                <PlaylistDatatable
+                    id={id}
+                    columns={columns}
+                    data={musics}
+                    hiddenColumns={{
+                        id: false,
+                        artist: false,
+                        cover: false,
+                    }}
+                />
             </Box>
         </div>
     )

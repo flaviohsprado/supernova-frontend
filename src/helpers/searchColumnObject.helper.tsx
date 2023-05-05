@@ -32,6 +32,8 @@ export default function createSearchColumnHelperObject({
                             artist: info.cell.row.original.artist,
                             // @ts-ignore
                             url: info.cell.row.original.audio,
+                            // @ts-ignore
+                            cover: info.cell.row.original.cover,
                         }
 
                         return <ContextPlayButton music={music} />

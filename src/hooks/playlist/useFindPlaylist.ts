@@ -1,5 +1,5 @@
-import { useFindPlaylistQuery } from "../../graphql/generated";
-import { IPlaylist } from "../../interfaces/playlist.interface";
+import { useFindPlaylistQuery } from '../../graphql/generated'
+import { IPlaylist } from '../../interfaces/playlist.interface'
 
 export const useFindPlaylist = (id: string) => {
     const { data } = useFindPlaylistQuery({ variables: { id } })
@@ -9,11 +9,11 @@ export const useFindPlaylist = (id: string) => {
     const playlist: IPlaylist = {
         id: String(data?.findOnePlaylist.id),
         title: String(data?.findOnePlaylist.title),
-        isPublic: Boolean(data?.findOnePlaylist.isPublic),        
+        isPublic: Boolean(data?.findOnePlaylist.isPublic),
         duration: Number(data?.findOnePlaylist.duration),
         numberOfSongs: Number(data?.findOnePlaylist.numberOfSongs),
         musics: data?.findOnePlaylist.musics,
-        file: data?.findOnePlaylist.file
+        file: data?.findOnePlaylist.file,
     }
 
     return { playlist }
