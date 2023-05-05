@@ -27,7 +27,7 @@ export default function PlayButton({ src }: IPlayButtonProps) {
                     borderRadius={'50%'}
                     aria-label="audio"
                     fontSize="40px"
-                    icon={<AiFillPauseCircle color={'#32cd32'} />}
+                    icon={<AiFillPauseCircle color={'primary.main'} />}
                     backgroundColor={'black'}
                     onClick={() => setPlaying(false)}
                     _hover={{
@@ -40,7 +40,7 @@ export default function PlayButton({ src }: IPlayButtonProps) {
                     borderRadius={'50%'}
                     aria-label="audio"
                     fontSize="40px"
-                    icon={<AiFillPlayCircle color={'#32cd32'} />}
+                    icon={<AiFillPlayCircle color={'primary.main'} />}
                     backgroundColor={'black'}
                     onClick={() => setPlaying(true)}
                     _hover={{

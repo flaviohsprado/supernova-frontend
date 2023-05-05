@@ -1,4 +1,4 @@
-import { IAlbum } from './album.interface'
+import { Album } from '../graphql/generated'
 import { IFile } from './file.interface'
 
 export interface IMusic {
@@ -7,7 +7,7 @@ export interface IMusic {
     duration?: number | null | undefined
     createdAt?: Date | string
     updatedAt?: Date | string
-    album?: IAlbum
+    album?: Album
     file?: IFile | null | undefined
 }
 

@@ -16,7 +16,6 @@ export default function PlaylistCover({
     const { handleCoverChange } = useUpdatePlaylistCover(playlistId, coverUrl)
 
     const handleEditCover = () => {
-        console.log('handleEditCover passou')
         const coverInput = document.getElementById('coverInput')
 
         coverInput?.click()
